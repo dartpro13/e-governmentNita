@@ -18,7 +18,10 @@ class M_input extends CI_Model {
 
 	function update($table,$set,$data,$par,$id){
 		$query=$this->db->query(" UPDATE $table SET $set=$data WHERE $par=$id ");
-		
+
+	}
+	function updateNew($table,$set,$par,$id){
+		$query=$this->db->query(" UPDATE $table SET $set WHERE $par=$id ");
 	}
 
 	function getdisct($table){
