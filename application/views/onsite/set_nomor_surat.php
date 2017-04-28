@@ -23,7 +23,31 @@
         </button>
       </a>
       <input type="text" class="form-inline" value="<?= $kodeSurat.'/'.$tanggal.'/'.$bulan.'/'.$tahun.'/'.$jam.'/'.$menit?>" readonly>
-      <a class="form-inline" href="<?= base_url()?>index.php/onsite/surat_kelakuan_baik/<?= $kodeSurat.'/'.$tanggal.'/'.$bulan.'/'.$tahun.'/'.$jam.'/'.$menit?>">
+      <?php
+        $ks="";
+        if($kodeSurat=="SKB"){
+          $ks="surat_kelakuan_baik";
+        }else if($kodeSurat=="SKL"){
+          $ks="surat_keterangan_lahir";
+        }else if($kodeSurat=="SPKTP"){
+          $ks="surat_pengantar_ktp";
+        }else if($kodeSurat=="SPKK"){
+          $ks="surat_pengantar_kk";
+        }else if($kodeSurat=="SKD"){
+          $ks="surat_keterangan_domisili";
+        }else if($kodeSurat=="SKP"){
+          $ks="surat_keterangan_pindah";
+        }else if($kodeSurat=="SKPJ"){
+          $ks="surat_keterangan_pas_jalan";
+        }else if($kodeSurat=="SKU"){
+          $ks="surat_keterangan_usaha";
+        }else if($kodeSurat=="SPRH"){
+          $ks="surat_pengesahan_riwayat_hidup";
+        }else if($kodeSurat=="SPKB"){
+          $ks="surat_pengesahan_kredit_bank";
+        }
+       ?>
+      <a class="form-inline" href="<?= base_url()?>index.php/onsite/<?=$ks.'/'.$kodeSurat.'/'.$tanggal.'/'.$bulan.'/'.$tahun.'/'.$jam.'/'.$menit?>">
         <button type="button" class="btn btn-primary">
           next
         </button>
