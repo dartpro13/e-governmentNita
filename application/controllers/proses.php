@@ -60,6 +60,14 @@ class Proses extends CI_Controller {
 			$this->template->template('table/data_pegawai',$data);
 	}
 
+	public function surat_kelakuan_baik(){
+
+		$nik=$this->input->post('nama');
+		$data['status']="create";
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
+			$this->template->template('surat/form_surat_kelakuan_baik',$data);
+
+	}
 
 	public function edit_surat_kelakuan_baik($id){
 			$data['surat']=$this->m_input->getwhereid('tb_surat_kelakuan_baik','id_surat',$id);
@@ -107,97 +115,6 @@ class Proses extends CI_Controller {
 			$this->template->template('table/surat_kelakuan_baik',$data);
 	}
 
-	public function delete($id){
-		$this->m_input->delete('tb_surat_kelakuan_baik','id_surat',$id);
-		$data['surat']=$this->m_input->get('tb_surat_kelakuan_baik');
-		$this->template->template('table/surat_kelakuan_baik',$data);
-	}
-
-	public function delete_pembelian($id){
-		$this->m_input->delete('pembelian','no_pembelian',$id);
-
-		$data['pembelian']=$this->m_input->get('pembelian');
-		foreach ($data['pembelian'] as $key => $value) {
-			$data['cekpetani']=$this->m_input->getwhereid('petani','kd_petani',$value->kd_petani);
-
-			foreach ($data['cekpetani'] as $value) {
-				echo $data['nama_petani']=$value->nm_petani;
-			}
-
-		}
-
-		$this->template->template('table/data_pembelian',$data);
-	}
-
-	public function pegawai(){
-		$kd_pegawai=$this->input->post('kd_pegawai');
-		$nama=$this->input->post('nama');
-		$upah=$this->input->post('upah');
-		$alamat=$this->input->post('alamat');
-
-			$data= array('kd_pegawai' => $kd_pegawai,
-				'kd_upah' => $upah,
-				'nm_pegawai' => $nama,
-				'alamat' => $alamat
-				);
-
-			$query=$this->m_input->insert('pegawai',$data);
-			$this->template->template('tables/data_pegawai');
-	}
-
-	public function delete_pegawai($id){
-		$this->m_input->delete('pegawai','kd_pegawai',$id);
-
-		$data['pegawai']=$this->m_input->get('pegawai');
-		foreach ($data['pegawai'] as $key => $value) {
-			$data['cekupah']=$this->m_input->getwhereid('upah','kd_upah',$value->kd_upah);
-
-			foreach ($data['cekupah'] as $value) {
-				$data['tarif']=$value->tarif;
-				$data['bagian']=$value->bagian;
-				$data['satuan']=$value->satuan;
-			}
-
-		}
-
-		$this->template->template('table/data_pegawai',$data);
-	}
-
-	public function petani(){
-		$kd_petani=$this->input->post('kd_petani');
-		$nama=$this->input->post('nama');
-		$no_telp=$this->input->post('no_telp');
-		$alamat=$this->input->post('alamat');
-
-			$data= array('kd_petani' => $kd_petani,
-				'nm_petani' => $nama,
-				'alamat_petani' => $alamat,
-				'tlp_petani' => $no_telp
-				);
-
-			$query=$this->m_input->insert('petani',$data);
-			$this->template->template('tables/data_petani');
-	}
-
-	public function delete_petani($id){
-		$this->m_input->delete('petani','kd_petani',$id);
-
-		$data['petani']=$this->m_input->get('petani');
-
-		$this->template->template('table/data_petani',$data);
-	}
-
-	public function surat_kelakuan_baik(){
-
-		$nik=$this->input->post('nama');
-		$data['status']="create";
-			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->template->template('surat/form_surat_kelakuan_baik',$data);
-
-	}
-
-
-
 	public function simpan_surat_kelakuan_baik(){
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
@@ -219,7 +136,7 @@ class Proses extends CI_Controller {
 
 			$this->template->template('table/surat_kelakuan_baik',$data);
 	}
-
+	
 	public function surat_keterangan_lahir(){
 
 		$nik=$this->input->post('nama');
@@ -228,6 +145,51 @@ class Proses extends CI_Controller {
 			$data['data_penduduk']=$this->m_input->get('tb_penduduk');
 			$this->template->template('surat/form_surat_keterangan_lahir',$data);
 
+	}
+	public function edit_surat_keterangan_lahir($id){
+			$data['surat']=$this->m_input->getwhereid('tb_surat_keterangan_lahir','id_surat',$id);
+			foreach ($data['surat'] as $row) {
+				$nik = $row->nik;
+				$keperluan = $row->keperluan;
+				$namaSurat = $row->nama;
+			}
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
+			$data['status']="edit";
+			$data['keperluan']=$keperluan;
+			$data['idS']=$id;
+			$data['namaSurat']=$namaSurat;
+			$this->template->template('surat/form_surat_keterangan_lahir',$data);
+	}
+	public function edit_surat_keterangan_lahir_act($id){
+		$nama=$this->input->post('nama');
+		$jabatan=$this->input->post('jabatan');
+		$nik=$this->input->post('nik');
+		$keperluan=$this->input->post('keperluan');
+
+		$data= array($nama,
+			$jabatan,
+			$nik,
+			$keperluan
+			);
+			$set= array('nama = '.'"'.$nama.'"',
+				'jabatan = '.'"'.$jabatan.'"',
+				'nik = '.'"'.$nik.'"',
+				'keperluan = '.'"'.$keperluan.'"'
+				);
+				$arrlength=count($set);
+				$x=0;
+				while($x<$arrlength) {
+						$this->m_input->updateNew('tb_surat_kelakuan_baik',$set[$x],'id_surat',$id);
+						$x++;
+				}
+
+			$data['surat']=$this->m_input->get('tb_surat_kelakuan_baik');
+				foreach ($data['surat'] as $value) {
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+
+
+			$this->template->template('table/surat_kelakuan_baik',$data);
 	}
 
 	public function simpan_surat_keterangan_lahir(){
@@ -257,14 +219,61 @@ class Proses extends CI_Controller {
 
 			$this->template->template('table/surat_keterangan_lahir',$data);
 	}
-
+	
 	public function surat_pengantar_ktp(){
 
 		$nik=$this->input->post('nama');
-
+		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
 			$this->template->template('surat/form_surat_pengantar_ktp',$data);
 
+	}
+	
+
+	public function edit_surat_pengantar_ktp($id){
+			$data['surat']=$this->m_input->getwhereid('tb_surat_pengantar_ktp','id_surat',$id);
+			foreach ($data['surat'] as $row) {
+				$nik = $row->nik;
+				$keperluan = $row->keperluan;
+				$namaSurat = $row->nama;
+			}
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
+			$data['status']="edit";
+			$data['keperluan']=$keperluan;
+			$data['idS']=$id;
+			$data['namaSurat']=$namaSurat;
+			$this->template->template('surat/form_surat_pengantar_ktp',$data);
+	}
+	public function edit_surat_pengantar_ktp_act($id){
+		$nama=$this->input->post('nama');
+		$jabatan=$this->input->post('jabatan');
+		$nik=$this->input->post('nik');
+		$keperluan=$this->input->post('keperluan');
+
+		$data= array($nama,
+			$jabatan,
+			$nik,
+			$keperluan
+			);
+			$set= array('nama = '.'"'.$nama.'"',
+				'jabatan = '.'"'.$jabatan.'"',
+				'nik = '.'"'.$nik.'"',
+				'keperluan = '.'"'.$keperluan.'"'
+				);
+				$arrlength=count($set);
+				$x=0;
+				while($x<$arrlength) {
+						$this->m_input->updateNew('tb_surat_pengantar_ktp',$set[$x],'id_surat',$id);
+						$x++;
+				}
+
+			$data['surat']=$this->m_input->get('tb_surat_pengantar_ktp');
+				foreach ($data['surat'] as $value) {
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+
+
+			$this->template->template('table/surat_pengantar_ktp',$data);
 	}
 
 	public function simpan_surat_pengantar_ktp(){
@@ -289,6 +298,8 @@ class Proses extends CI_Controller {
 			$this->template->template('table/surat_pengantar_ktp',$data);
 	}
 
+	
+	
 	public function surat_pengantar_kk(){
 
 		$nik=$this->input->post('nama');

@@ -6,7 +6,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
+        Data Surat Kelakuan Baik
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">

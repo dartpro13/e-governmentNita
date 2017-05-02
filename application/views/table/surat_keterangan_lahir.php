@@ -6,7 +6,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
+        Data Keterangan Lahir
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -42,8 +42,6 @@
                   <th>Jenis Kelamin</th>
                   <th>WNI</th>
                   <th>Alamat</th>
-                  <th>Nama Ayah</th>
-                  <th>Nama Ibu</th>
                   <th>Action</th>
 
                 </tr>
@@ -73,20 +71,13 @@
                     <td><?php echo $data->kewarganegaraan ?></td>
                     <td><?php echo $data->alamat ?></td>
 
-                    <?php
-                    foreach ($ayah as $dataayah) {
-
-                    ?>
-                    <td><?php echo $dataayah->nama ?></td>
-                    <?php
-                    foreach ($ibu as $dataibu) {
-
-                    ?>
-                    <td><?php echo $dataibu->nama ?></td>
+                    
+                    
+                    
                     <?php
                   }
-                  }
-                }
+                  
+                
                    ?>
                   <td>
                     <a href="<?php echo site_url() ?>/proses/edit/<?php echo $value->id_surat ?>">

@@ -40,9 +40,8 @@ class Tables extends CI_Controller {
 		$data['surat']=$this->m_input->get('tb_surat_keterangan_lahir');
 		$data['surat']=$this->m_input->get('tb_surat_keterangan_lahir');
 				foreach ($data['surat'] as $value) {
-					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik_pengaju);
-					$data['ayah']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik_ayah);
-					$data['ibu']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik_ibu);
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+					
 				}
 
 			$this->template->template('table/surat_keterangan_lahir',$data);
@@ -108,7 +107,7 @@ class Tables extends CI_Controller {
 			$this->template->template('table/surat_keterangan_usaha',$data);
 	}
 
-	public function data_surat_pengesahan_riwayat_hidup(){
+	public function data_surat_keterangan_riwayat_hidup(){
 		$data['surat']=$this->m_input->get('tb_surat_pengesahan_riwayat_hidup');
 		$data['surat']=$this->m_input->get('tb_surat_pengesahan_riwayat_hidup');
 				foreach ($data['surat'] as $value) {
@@ -118,7 +117,7 @@ class Tables extends CI_Controller {
 			$this->template->template('table/surat_pengesahan_riwayat_hidup',$data);
 	}
 
-	public function data_surat_pengesahan_kredit_bank(){
+	public function data_pengesahan_kredit_bank(){
 		$data['surat']=$this->m_input->get('tb_surat_pengesahan_kredit_bank');
 		$data['surat']=$this->m_input->get('tb_surat_pengesahan_kredit_bank');
 				foreach ($data['surat'] as $value) {

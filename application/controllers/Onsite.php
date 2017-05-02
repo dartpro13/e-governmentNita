@@ -202,6 +202,34 @@ var $js;
 				}
 			redirect('onsite/');
 	}
+	
+	public function proses_pengantar_kk(){
+
+		$nik=$this->input->post('nama');
+		$data['status']="create";
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
+			$this->load->view('onsite/form_surat_pengantar_kk',$data);
+
+	}
+  public function simpan_surat_pengantar_kk(){
+		$nama=$this->input->post('nama');
+		$jabatan=$this->input->post('jabatan');
+		$nik=$this->input->post('nik');
+		$keperluan=$this->input->post('keperluan');
+
+			$data= array('nama' => $nama,
+				'jabatan' => $jabatan,
+				'nik' => $nik,
+				'keperluan' => $keperluan
+				);
+
+			$this->m_input->insert('tb_surat_pengantar_kk',$data);
+			$data['surat']=$this->m_input->get('tb_surat_pengantar_kk');
+				foreach ($data['surat'] as $value) {
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+			redirect('onsite/');
+	}
 
 	public function proses_surat_keterangan_domisili(){
 
@@ -323,7 +351,7 @@ var $js;
 			$this->load->view('onsite/form_surat_pengesahan_riwayat_hidup',$data);
 
 	}
-  public function simpan_pengesahan_riwayat_hidup(){
+  public function simpan_surat_pengesahan_riwayat_hidup(){
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
 		$nik=$this->input->post('nik');
@@ -365,34 +393,6 @@ var $js;
 
 			$this->m_input->insert('tb_surat_pengesahan_kredit_bank',$data);
 			$data['surat']=$this->m_input->get('tb_surat_pengesahan_kredit_bank');
-				foreach ($data['surat'] as $value) {
-					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
-				}
-			redirect('onsite/');
-	}
-
-	public function proses_surat_pengantar_kk(){
-
-		$nik=$this->input->post('nama');
-		$data['status']="create";
-			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_pengantar_kk',$data);
-
-	}
-  public function simpan_surat_pengantar_kk(){
-		$nama=$this->input->post('nama');
-		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
-		$keperluan=$this->input->post('keperluan');
-
-			$data= array('nama' => $nama,
-				'jabatan' => $jabatan,
-				'nik' => $nik,
-				'keperluan' => $keperluan
-				);
-
-			$this->m_input->insert('tb_surat_pengantar_kk',$data);
-			$data['surat']=$this->m_input->get('tb_surat_pengantar_kk');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
