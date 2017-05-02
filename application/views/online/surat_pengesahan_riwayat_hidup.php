@@ -25,7 +25,7 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
      <h1>
-       Form Input Surat Pengantar KK
+       Form Input Surat Pengesahan Riwayat Hidup
 
      </h1>
      <ol class="breadcrumb">
@@ -50,7 +50,7 @@
        <div class="box-body">
          <div class="row">
 
-           <form action="<?php echo site_url() ?>/onsite/proses_pengantar_kk" method="POST">
+           <form action="<?php echo site_url() ?>/Online/proses_surat_pengesahan_riwayat_hidup" method="POST">
            <div class="col-md-6">
               <div class="form-group">
                <label>NIK Penduduk</label>

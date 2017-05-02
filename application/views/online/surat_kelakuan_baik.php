@@ -25,7 +25,7 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
      <h1>
-       Form Input Surat Keterangan Pindah
+       Form Input Surat Kelakuan Baik
 
      </h1>
      <ol class="breadcrumb">
@@ -50,7 +50,7 @@
        <div class="box-body">
          <div class="row">
 
-           <form action="<?php echo site_url() ?>/onsite/proses_surat_keterangan_pindah" method="POST">
+           <form action="<?php echo site_url() ?>/Online/proses_surat_kelakuan_baik" method="POST">
            <div class="col-md-6">
               <div class="form-group">
                <label>NIK Penduduk</label>

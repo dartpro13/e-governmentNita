@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SKB">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKB">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Kelakuan Baik</h5></center>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SKL">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKL">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Keterangan Lahir</h5></center>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SPKTP">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SPKTP">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Pengantar KTP</h5></center>
@@ -49,7 +49,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SPKK">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SPKK">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Pengantar KK</h5></center>
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SKD">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKD">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Keterangan Domisili</h5></center>
@@ -69,7 +69,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SKP">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKP">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Keterangan Pindah</h5></center>
@@ -79,7 +79,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SKPJ">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKPJ">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Keterangan Pas Jalan</h5></center>
@@ -89,7 +89,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SKU">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKU">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Keterangan Usaha</h5></center>
@@ -99,7 +99,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SPRH">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SPRH">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Pengesahan Riwayat Hidup</h5></center>
@@ -109,7 +109,7 @@
         </div>
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/onsite/set_nomor_surat/SPKB">
+            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SPKB">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Pengesahan Kredit Bank</h5></center>

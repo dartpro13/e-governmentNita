@@ -17,7 +17,7 @@
     <div class="container">
       <p><br/></p>
       <center>
-      <a class="form-inline" href="<?= base_url()?>index.php/onsite/">
+      <a class="form-inline" href="<?= base_url()?>index.php/Online/">
         <button type="button" class="btn btn-primary">
           back
         </button>
@@ -47,7 +47,7 @@
           $ks="surat_pengesahan_kredit_bank";
         }
        ?>
-      <a class="form-inline" href="<?= base_url()?>index.php/onsite/<?=$ks.'/'.$kodeSurat.'/'.$tanggal.'/'.$bulan.'/'.$tahun.'/'.$jam.'/'.$menit?>">
+      <a class="form-inline" href="<?= base_url()?>index.php/Online/<?=$ks.'/'.$kodeSurat.'/'.$tanggal.'/'.$bulan.'/'.$tahun.'/'.$jam.'/'.$menit?>">
         <button type="button" class="btn btn-primary">
           next
         </button>

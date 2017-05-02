@@ -55,10 +55,10 @@
            }
             ?>
            <?php if($status=="edit"){
-             ?><form role="form" action="<?php echo site_url() ?>/proses/edit_surat_pengantar_kk_act/<?= $idS;?>" method="POST">
+             ?><form role="form" action="<?php echo site_url() ?>/proses/edit_surat_pengesahan_kredit_bank_act/<?= $idS;?>" method="POST">
              <?php
            } else if($status=="create"){
-             ?><form role="form" action="<?php echo site_url() ?>/onsite/simpan_surat_pengantar_kk" method="POST">
+             ?><form role="form" action="<?php echo site_url() ?>/Online/simpan_surat_pengesahan_kredit_bank" method="POST">
              <?php
            }?>
 

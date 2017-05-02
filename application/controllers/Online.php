@@ -11,7 +11,7 @@
  *
  * @author NVM Team Creative
  */
-class Onsite extends CI_Controller {
+class Online extends CI_Controller {
     //put your code here
 var $assets;
 var $css;
@@ -45,7 +45,7 @@ var $js;
 	}
 	public function index()
 	{
-    $data['title']='Onsite';
+    $data['title']='Online';
     $data['images']=base_url().'assets/images/surat.png';
 		// $data['assets']=$this->assets;
 		// $data['css']=$this->css;
@@ -57,75 +57,75 @@ var $js;
     // $data['top_navigation']=$this->load->view('admin/top_navigation',$data, true);
     // $data['content']=$this->load->view('admin/content_dashboard',$data, true);
     // $data['footer_content']=$this->load->view('admin/footer_content',$data, true);
-		$this->load->view('onsite/index',$data);
+		$this->load->view('Online/index',$data);
 	}
   public function set_nomor_surat($kodeSurat)
   {
-    $data['title']='Onsite';
+    $data['title']='Online';
     $data['kodeSurat']=$kodeSurat;
     $data['tanggal']=date('d');
     $data['bulan']=date('m');
     $data['tahun']=date('Y');
     $data['jam']=date('H');
     $data['menit']=date('i');
-    $this->load->view('onsite/set_nomor_surat',$data);
+    $this->load->view('Online/set_nomor_surat',$data);
   }
 	public function surat_kelakuan_baik($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_kelakuan_baik',$data);
+		 $this->load->view('Online/surat_kelakuan_baik',$data);
 	}
 	public function surat_keterangan_lahir($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_keterangan_lahir',$data);
+		 $this->load->view('Online/surat_keterangan_lahir',$data);
 	}
 	public function surat_keterangan_usaha($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_keterangan_usaha',$data);
+		 $this->load->view('Online/surat_keterangan_usaha',$data);
 	}
 	public function surat_keterangan_pindah($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_keterangan_pindah',$data);
+		 $this->load->view('Online/surat_keterangan_pindah',$data);
 	}
 	public function surat_keterangan_domisili($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_keterangan_domisili',$data);
+		 $this->load->view('Online/surat_keterangan_domisili',$data);
 	}
 	public function surat_keterangan_pas_jalan($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_keterangan_pas_jalan',$data);
+		 $this->load->view('Online/surat_keterangan_pas_jalan',$data);
 	}
 	public function surat_pengantar_kk($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_pengantar_kk',$data);
+		 $this->load->view('Online/surat_pengantar_kk',$data);
 	}
 	public function surat_pengantar_ktp($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_pengantar_ktp',$data);
+		 $this->load->view('Online/surat_pengantar_ktp',$data);
 	}
 	public function surat_pengesahan_kredit_bank($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_pengesahan_kredit_bank',$data);
+		 $this->load->view('Online/surat_pengesahan_kredit_bank',$data);
 	}
 	public function surat_pengesahan_riwayat_hidup($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
-		 $this->load->view('onsite/surat_pengesahan_riwayat_hidup',$data);
+		 $this->load->view('Online/surat_pengesahan_riwayat_hidup',$data);
 	}
 	public function proses_surat_kelakuan_baik(){
 
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_kelakuan_baik',$data);
+			$this->load->view('Online/form_surat_kelakuan_baik',$data);
 
 	}
   public function simpan_surat_kelakuan_baik(){
@@ -145,14 +145,14 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 	public function proses_surat_keterangan_lahir(){
 
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_keterangan_lahir',$data);
+			$this->load->view('Online/form_surat_keterangan_lahir',$data);
 
 	}
   public function simpan_surat_keterangan_lahir(){
@@ -172,7 +172,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_pengantar_ktp(){
@@ -180,7 +180,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_pengantar_ktp',$data);
+			$this->load->view('Online/form_surat_pengantar_ktp',$data);
 
 	}
   public function simpan_surat_pengantar_ktp(){
@@ -200,7 +200,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 	
 	public function proses_pengantar_kk(){
@@ -208,7 +208,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_pengantar_kk',$data);
+			$this->load->view('Online/form_surat_pengantar_kk',$data);
 
 	}
   public function simpan_surat_pengantar_kk(){
@@ -228,7 +228,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_keterangan_domisili(){
@@ -236,7 +236,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_keterangan_domisili(',$data);
+			$this->load->view('Online/form_keterangan_domisili(',$data);
 
 	}
   public function simpan_surat_keterangan_domisili(){
@@ -256,7 +256,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_keterangan_pindah(){
@@ -264,7 +264,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_keterangan_pindah',$data);
+			$this->load->view('Online/form_surat_keterangan_pindah',$data);
 
 	}
   public function simpan_surat_keterangan_pindah(){
@@ -284,7 +284,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_keterangan_pas_jalan(){
@@ -292,7 +292,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_keterangan_pas_jalan',$data);
+			$this->load->view('Online/form_surat_keterangan_pas_jalan',$data);
 
 	}
   public function simpan_surat_keterangan_pas_jalan(){
@@ -312,7 +312,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_keterangan_usaha(){
@@ -320,7 +320,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_keterangan_usaha',$data);
+			$this->load->view('Online/form_surat_keterangan_usaha',$data);
 
 	}
   public function simpan_surat_keterangan_usaha(){
@@ -340,7 +340,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_pengesahan_riwayat_hidup(){
@@ -348,7 +348,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_pengesahan_riwayat_hidup',$data);
+			$this->load->view('Online/form_surat_pengesahan_riwayat_hidup',$data);
 
 	}
   public function simpan_surat_pengesahan_riwayat_hidup(){
@@ -368,7 +368,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 	public function proses_surat_pengesahan_kredit_bank(){
@@ -376,7 +376,7 @@ var $js;
 		$nik=$this->input->post('nama');
 		$data['status']="create";
 			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
-			$this->load->view('onsite/form_surat_pengesahan_kredit_bank',$data);
+			$this->load->view('Online/form_surat_pengesahan_kredit_bank',$data);
 
 	}
   public function simpan_surat_pengesahan_kredit_bank(){
@@ -396,7 +396,7 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('onsite/');
+			redirect('Online/');
 	}
 
 }
