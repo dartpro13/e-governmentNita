@@ -17,6 +17,10 @@ class Form extends CI_Controller {
 	{
 		 $this->template->template('form/input_pegawai');
 	}
+    public function input_surat_masuk()
+	{
+		 $this->template->template('form/input_surat_masuk');
+	}
 
 	
 

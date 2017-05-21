@@ -58,7 +58,7 @@
              ?><form role="form" action="<?php echo site_url() ?>/proses/edit_surat_kelakuan_baik_act/<?= $idS;?>" method="POST">
              <?php
            } else if($status=="create"){
-             ?><form role="form" action="<?php echo site_url() ?>/Online/simpan_surat_kelakuan_baik" method="POST">
+             ?><form role="form" action="<?php echo site_url() ?>/Online/simpan_surat_kelakuan_baik" method="POST" enctype="multipart/form-data">
              <?php
            }?>
 
@@ -179,6 +179,28 @@
 
                </div>
                </div>
+                 <center><h3>Persyaratan</h3></center>
+                <div class="col-md-6">
+
+                <div class="form-group">
+
+
+                <div class="form-group">
+                 <label for="exampleInputEmail1">File Persyaratan</label>
+                 <input type="file" name="berkas" class="form-inline" /><br>
+                    <small>silahkan masukkan kedalam zip/rar file berkas persyaratan anda</small><br><br>
+                    <small>Berkas Persayaratan meliputi: </small><br>
+                    <small>*)Foto KTP</small><br>
+                    <small>**)Foto KK</small><br>
+                    <small>***)Foto Surat Pengantar RT/RW</small><br>
+                    <small>****)Foto Akte Kelahiran</small>
+                   
+                </div>
+               </div>
+
+               </div>
+               </div>
+                 
              </div>
              <!-- /.box-body -->
 

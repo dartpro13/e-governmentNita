@@ -13,13 +13,13 @@
     </style>
   </head>
   <body>
-
+<small><?=$message;?></small>
     <div class="container">
       <p><br/></p>
       <div class="row">
         <div class="col-md-3">
           <div class="thumbnail">
-            <a href="<?=base_url()?>index.php/Upload/upload_persyaratan/SKB">
+            <a href="<?=base_url()?>index.php/Online/surat_kelakuan_baik/SKB">
               <img src="<?= $images;?>" alt="Lights" style="width:100%;background-color:cornflowerblue;">
               <div class="caption">
                 <center><h5>Surat Kelakuan Baik</h5></center>

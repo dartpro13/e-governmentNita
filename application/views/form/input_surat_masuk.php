@@ -25,7 +25,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url() ?>/proses/input_penduduk" method="POST">
+            <form role="form" action="<?php echo site_url() ?>/proses/simpan_surat_masuk" method="POST">
               <div class="box-body">
                 <div class="col-md-6">
                  <div class="form-group">
@@ -34,28 +34,28 @@
                 </div>
                 
                 <div class="form-group">
-                  <label for="exampleInputPassword1">No Surat Pegawai</label>
-                  <input type="text" class="form-control" name="nama" placeholder="Masukan Nomor Surat">
+                  <label for="exampleInputPassword1">No Surat</label>
+                  <input type="text" class="form-control" name="nomor_surat" placeholder="Masukan Nomor Surat">
                 </div>
                 
 				<div class="form-group">
                   <label for="exampleInputPassword1">Perihal</label>
-                   <input type="text" class="form-control" name="tmp" >
+                   <input type="text" class="form-control" name="perihal" >
                 </div>
 				
 				<div class="form-group">
-                  <label for="exampleInputPassword1">Tgl Surat Masuk</label>
+                  <label for="exampleInputPassword1">Untuk Tanggal</label>
                   <input type="date" class="form-control" name="tgl" >
                 </div>
 				
 				<div class="form-group">
                   <label for="exampleInputPassword1">Ditujukan</label>
-                   <input type="text" class="form-control" name="tmp" >
+                   <input type="text" class="form-control" name="ditujukan" >
                 </div>
 				
 				<div class="form-group">
                   <label for="exampleInputPassword1">Jabatan</label>
-                  <select class="form-control" name="kwn">
+                  <select class="form-control" name="jabatan">
                     <option>Kepala Desa</option>
                     <option>Sekretaris</option>
                   </select>
@@ -63,7 +63,7 @@
 				
 				<div class="form-group">
                   <label for="exampleInputPassword1">Pengirim</label>
-                   <input type="text" class="form-control" name="tmp" >
+                   <input type="text" class="form-control" name="pengirim" >
                 </div>
 				
                

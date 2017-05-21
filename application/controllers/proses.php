@@ -516,6 +516,31 @@ class Proses extends CI_Controller {
 
 			$this->template->template('table/surat_pengesahan_kredit_bank',$data);
 	}
+    public function simpan_surat_masuk(){
+		$nama=$this->input->post('nama');
+		$nomor_surat=$this->input->post('nomor_surat');
+		$perihal=$this->input->post('perihal');
+		$tgl=$this->input->post('tgl');
+		$jabatan=$this->input->post('jabatan');
+		$pengirim=$this->input->post('pengirim');
+		$ditujukan=$this->input->post('ditujukan');
+
+			$data= array('pengirim' => $pengirim,
+				'ditujukan' => $ditujukan,
+				'tgl_surat' => $tgl,
+				'perihal' => $perihal,
+				'file' => $nomor_surat,
+				'nip' => 52352
+				);
+
+			$this->m_input->insert('tb_surat_masuk',$data);
+            $data['surat']=$this->m_input->get('tb_surat_masuk');
+				foreach ($data['surat'] as $value) {
+//					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+
+			$this->template->template('table/surat_masuk',$data);
+	}
 
 
 }

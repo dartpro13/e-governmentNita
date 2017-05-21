@@ -69,12 +69,12 @@ class Upload extends CI_Controller{
  
 			$data['message'] =  'Your file was successfully uploaded!';
             $data['title']='Online';
-    $data['kodeSurat']=$kodeSurat;
-    $data['tanggal']=date('d');
-    $data['bulan']=date('m');
-    $data['tahun']=date('Y');
-    $data['jam']=date('H');
-    $data['menit']=date('i');
+            $data['kodeSurat']=$kodeSurat;
+            $data['tanggal']=date('d');
+            $data['bulan']=date('m');
+            $data['tahun']=date('Y');
+            $data['jam']=date('H');
+            $data['menit']=date('i');
 			$this->load->view('Online/set_nomor_surat',$data);
 		}
 	}

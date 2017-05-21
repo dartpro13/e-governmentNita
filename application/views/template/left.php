@@ -240,7 +240,7 @@
           </a>
 		  <ul class="treeview-menu">
             <li><a href="<?php echo site_url() ?>/form/input_surat_masuk"><i class="fa fa-circle-o"></i>Form Input Surat Masuk</a></li>
-            <li><a href="<?php echo site_url() ?>/tables/data_surat_kelakuan_baik"><i class="fa fa-circle-o"></i>Agenda Surat Masuk</a></li>
+            <li><a href="<?php echo site_url() ?>/tables/data_surat_masuk"><i class="fa fa-circle-o"></i>Agenda Surat Masuk</a></li>
             </ul>
         </li>
       </ul>

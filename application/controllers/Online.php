@@ -47,6 +47,7 @@ var $js;
 	{
     $data['title']='Online';
     $data['images']=base_url().'assets/images/surat.png';
+        $data['message']='<h1>Surat Online</h1>';
 		// $data['assets']=$this->assets;
 		// $data['css']=$this->css;
 		// $data['js']=$this->js;
@@ -70,7 +71,7 @@ var $js;
     $data['menit']=date('i');
     $this->load->view('Online/set_nomor_surat',$data);
   }
-	public function surat_kelakuan_baik($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_kelakuan_baik($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_kelakuan_baik',$data);
@@ -129,7 +130,29 @@ var $js;
 
 	}
   public function simpan_surat_kelakuan_baik(){
-		$nama=$this->input->post('nama');
+        $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_kelakuan_baik'
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);
+      
+            $nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
 		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
@@ -145,7 +168,12 @@ var $js;
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="Online/">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+        }
+		
 	}
 	public function proses_surat_keterangan_lahir(){
 

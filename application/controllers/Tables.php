@@ -56,6 +56,15 @@ class Tables extends CI_Controller {
 
 			$this->template->template('table/surat_pengantar_ktp',$data);
 	}
+    public function data_surat_masuk(){
+		$data['surat']=$this->m_input->get('tb_surat_masuk');
+		$data['surat']=$this->m_input->get('tb_surat_masuk');
+				foreach ($data['surat'] as $value) {
+//					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+
+			$this->template->template('table/surat_masuk',$data);
+	}
 
 	public function data_surat_pengantar_kk(){
 		$data['surat']=$this->m_input->get('tb_surat_pengantar_kk');
