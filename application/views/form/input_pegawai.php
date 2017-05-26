@@ -67,8 +67,33 @@
 
                
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Alamat</label>
-                  <textarea class="form-control" name="alamat" style="height:20vh;"></textarea>
+                    <label for="exampleInputPassword1">Alamat</label>
+                    <input type="text" class="form-control" name="alamat" >                    
+                </div>
+                <div class="col-md-6" style="padding:0">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">RT</label>
+                    <input type="text" class="form-control" name="rt" >                    
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Kecamatan</label>
+                    <input type="text" class="form-control" name="kecamatan" >
+                </div>
+                
+                </div>
+                <div class="col-md-6" >
+                <div class="form-group">
+                    <label for="exampleInputPassword1">RW</label>
+                    <input type="text" class="form-control" name="rw" >
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Kabupaten / Kota</label>
+                    <input type="text" class="form-control" name="kabupaten" >                    
+                </div>
+                </div>
+                <div class="form-group">  
+                    <label for="exampleInputPassword1">Provinsi</label>
+                    <input type="text" class="form-control" name="provinsi" >                    
                 </div>
 
 

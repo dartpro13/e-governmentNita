@@ -21,6 +21,32 @@ class Proses extends CI_Controller {
 		$kwn=$this->input->post('kwn');
 		$alamat=$this->input->post('alamat');
 		$pekerjaan=$this->input->post('pekerjaan');
+		if($this->input->post('rt')!=""){
+            $rt='RT. '$this->input->post('rt');
+        }else{
+            $rt='RT.-';
+        }
+        if($this->input->post('rw')!=""){
+            $rw='RW. '$this->input->post('rw');
+        }else{
+            $rw='RW.-';
+        }
+        if($this->input->post('kecamatan')!=""){
+            $kecamatan='Kecamatan: '$this->input->post('kecamatan');
+        }else{
+            $kecamatan='Kecamatan: -';
+        }
+        if($this->input->post('kabupaten')!=""){
+            $kabupaten='Kabupaten:  '$this->input->post('kabupaten');
+        }else{
+            $kabupaten='Kabupaten: -';
+        }
+        if($this->input->post('provinsi')!=""){
+            $provinsi='Kabupaten:  '$this->input->post('provinsi');
+        }else{
+            $provinsi='Provinsi: -';
+        }
+		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.' '.$kecamatan.' '.$kabupaten.' '.$provinsi;
 
 			$data= array('nik' => $nik,
 				'nama' => $nama,
@@ -28,7 +54,7 @@ class Proses extends CI_Controller {
 				'agama' => $agama,
 				'tmp_lahir' => $tmp_lahir,
 				'tgl_lahir' => $tgl,
-				'alamat' => $alamat,
+				'alamat' => $alamat_lengkap,
 				'status_perkawinan' => $status,
 				'kewarganegaraan' => $kwn,
 				'pekerjaan' => $pekerjaan
@@ -47,12 +73,39 @@ class Proses extends CI_Controller {
 		$jabatan=$this->input->post('jabatan');
 		$alamat=$this->input->post('alamat');
 
+        if($this->input->post('rt')!=""){
+            $rt='RT. '$this->input->post('rt');
+        }else{
+            $rt='RT.-';
+        }
+        if($this->input->post('rw')!=""){
+            $rw='RW. '$this->input->post('rw');
+        }else{
+            $rw='RW.-';
+        }
+        if($this->input->post('kecamatan')!=""){
+            $kecamatan='Kecamatan: '$this->input->post('kecamatan');
+        }else{
+            $kecamatan='Kecamatan: -';
+        }
+        if($this->input->post('kabupaten')!=""){
+            $kabupaten='Kabupaten:  '$this->input->post('kabupaten');
+        }else{
+            $kabupaten='Kabupaten: -';
+        }
+        if($this->input->post('provinsi')!=""){
+            $provinsi='Kabupaten:  '$this->input->post('provinsi');
+        }else{
+            $provinsi='Provinsi: -';
+        }
+		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.' '.$kecamatan.' '.$kabupaten.' '.$provinsi;
+
 			$data= array('nip' => $nip,
 				'password' => md5($password),
 				'no_hp' => $no_hp,
 				'nama' => $nama,
 				'jabatan' => $jabatan,
-				'alamat' => $alamat
+				'alamat' => $alamat_lengkap
 				);
 
 			$query=$this->m_input->insert('tb_pegawai',$data);
@@ -541,6 +594,63 @@ class Proses extends CI_Controller {
 
 			$this->template->template('table/surat_masuk',$data);
 	}
+    
+    function import_penduduk(){
+	$fileNam = time().$_FILES['data_penduduk']['name'];
+    $fileName = str_replace(" ", "_", $fileNam);
+	        $config['upload_path'] = './assets/'; //buat folder dengan nama assets di root folder
+	        $config['file_name'] = $fileName;
+	        $config['allowed_types'] = 'xls|xlsx|csv';
+	        $config['max_size'] = 10000;
+
+	        $this->load->library('upload');
+	        $this->upload->initialize($config);
+
+	        if(! $this->upload->do_upload('file') )
+	        $this->upload->display_errors();
+
+	        $media = $this->upload->data('file');
+	        $inputFileName = 'assets/'.$config['file_name'];
+
+	        try {
+	                $inputFileType = IOFactory::identify($inputFileName);
+	                $objReader = IOFactory::createReader($inputFileType);
+	                $objPHPExcel = $objReader->load($inputFileName);
+	            } catch(Exception $e) {
+	                die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+	            }
+
+	            $sheet = $objPHPExcel->getSheet(0);
+	            $highestRow = $sheet->getHighestRow();
+	            $highestColumn = $sheet->getHighestColumn();
+
+	            for ($row = 2; $row <= $highestRow; $row++){                  //  Read a row of data into an array
+	                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+	                                                NULL,
+	                                                TRUE,
+	                                                FALSE);
+
+	                //Sesuaikan sama nama kolom tabel di database
+	                 $data = array(
+                         "nik"=> $rowData[0][0],
+                         "nama"=> $rowData[0][1],
+                         "j_kelamin"=> $rowData[0][2],
+                         "agama"=> $rowData[0][3],
+                         "tmp_lahir"=> $rowData[0][4],
+                         "tgl_lahir"=> $rowData[0][5],
+                         "alamat"=> $rowData[0][7],
+                         "status_perkawinan"=> $rowData[0][8],
+                         "kewarganegaraan"=> $rowData[0][9],
+                         "pekerjaan"=> $rowData[0][10],
+	                );
+
+	                //sesuaikan nama dengan nama tabel
+	                $insert = $this->db->insert("tb_penduduk",$data);
+	                delete_files($media['file_path']);
+
+	            }
+	        redirect('tables/data_penduduk');
+    }
 
 
 }

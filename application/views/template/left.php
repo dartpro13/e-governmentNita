@@ -42,6 +42,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo site_url() ?>/form/input_penduduk"><i class="fa fa-circle-o"></i>Form Input Penduduk</a></li>
+            <li><a href="<?php echo site_url() ?>/form/import_penduduk"><i class="fa fa-circle-o"></i>Import From Excel</a></li>
             <li><a href="<?php echo site_url() ?>/tables/data_penduduk"><i class="fa fa-circle-o"></i>Data Penduduk</a></li>
           </ul>
         </li>

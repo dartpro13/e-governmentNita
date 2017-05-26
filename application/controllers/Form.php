@@ -12,6 +12,10 @@ class Form extends CI_Controller {
 	{
 		 $this->template->template('form/input_penduduk');
 	}
+    public function import_penduduk()
+	{
+		 $this->template->template('form/import_penduduk');
+	}
 
 	public function input_pegawai()
 	{
