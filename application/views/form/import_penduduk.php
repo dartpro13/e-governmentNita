@@ -25,7 +25,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url() ?>/proses/import_penduduk" method="POST">
+            <form role="form" action="<?php echo site_url() ?>/proses/import_penduduk" method="POST" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="col-md-6">
                 <div class="form-group">

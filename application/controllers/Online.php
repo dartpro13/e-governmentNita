@@ -76,47 +76,47 @@ var $js;
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_kelakuan_baik',$data);
 	}
-	public function surat_keterangan_lahir($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_keterangan_lahir($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_lahir',$data);
 	}
-	public function surat_keterangan_usaha($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_keterangan_usaha($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_usaha',$data);
 	}
-	public function surat_keterangan_pindah($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_keterangan_pindah($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_pindah',$data);
 	}
-	public function surat_keterangan_domisili($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_keterangan_domisili($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_domisili',$data);
 	}
-	public function surat_keterangan_pas_jalan($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_keterangan_pas_jalan($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_pas_jalan',$data);
 	}
-	public function surat_pengantar_kk($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_pengantar_kk($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengantar_kk',$data);
 	}
-	public function surat_pengantar_ktp($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_pengantar_ktp($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengantar_ktp',$data);
 	}
-	public function surat_pengesahan_kredit_bank($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_pengesahan_kredit_bank($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengesahan_kredit_bank',$data);
 	}
-	public function surat_pengesahan_riwayat_hidup($kodeSurat,$tanggal,$bulan,$tahun,$jam,$menit)
+	public function surat_pengesahan_riwayat_hidup($kodeSurat)
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengesahan_riwayat_hidup',$data);
@@ -136,7 +136,9 @@ var $js;
 //		$config['max_width']  = '1024';
 //		$config['max_height']  = '768';
         $this->upload->initialize($config);
-        
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
         if ( ! $this->upload->do_upload('berkas')){
             $data['title']='Online';
             $data['images']=base_url().'assets/images/surat.png';
@@ -147,22 +149,28 @@ var $js;
  
 			$data_insert = array(
 					            'nama_file' => $this->upload->data('file_name'),
-					            'persyaratan_untuk' => 'surat_kelakuan_baik'
+					            'persyaratan_untuk' => 'surat_kelakuan_baik',
+                                'valid_code'=>$valid_code
 					        );
 			//query to insert into myupload table
 			$this->db->insert('tb_file_persyaratan', $data_insert);
       
             $nama=$this->input->post('nama');
-		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
-		$keperluan=$this->input->post('keperluan');
-
+            $jabatan=$this->input->post('jabatan');
+            $keperluan=$this->input->post('keperluan');
+            $nomor_hp=$this->input->post('nomor_hp');
 			$data= array('nama' => $nama,
 				'jabatan' => $jabatan,
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
-
+            $online= array('jenis_surat'=>'surat_kelakuan_baik',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 			$this->m_input->insert('tb_surat_kelakuan_baik',$data);
 			$data['surat']=$this->m_input->get('tb_surat_kelakuan_baik');
 				foreach ($data['surat'] as $value) {
@@ -170,7 +178,7 @@ var $js;
 				}
             $data['title']='Online';
             $data['images']=base_url().'assets/images/surat.png';
-			$data['message'] =  'klik <a href="Online/">finish</a> untuk menyelesaikan permintaan';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
 			$this->load->view('Online/index',$data);
         }
 		
@@ -183,10 +191,34 @@ var $js;
 			$this->load->view('Online/form_surat_keterangan_lahir',$data);
 
 	}
-  public function simpan_surat_keterangan_lahir(){
+    public function simpan_surat_keterangan_lahir(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_keterangan_lahir',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -194,15 +226,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
-
+$online= array('jenis_surat'=>'surat_keterangan_lahir',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 			$this->m_input->insert('tb_surat_keterangan_lahir',$data);
 			$data['surat']=$this->m_input->get('tb_surat_keterangan_lahir');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
 	}
-
+    }
 	public function proses_surat_pengantar_ktp(){
 
 		$nik=$this->input->post('nama');
@@ -212,9 +253,33 @@ var $js;
 
 	}
   public function simpan_surat_pengantar_ktp(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_pengantar_ktp',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -222,15 +287,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
-
+$online= array('jenis_surat'=>'surat_pengantar_ktp',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 			$this->m_input->insert('tb_surat_pengantar_ktp',$data);
 			$data['surat']=$this->m_input->get('tb_surat_pengantar_ktp');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
 	}
-	
+  }
 	public function proses_pengantar_kk(){
 
 		$nik=$this->input->post('nama');
@@ -240,9 +314,33 @@ var $js;
 
 	}
   public function simpan_surat_pengantar_kk(){
-		$nama=$this->input->post('nama');
+	$config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_pengantar_kk',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
+      $nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -250,13 +348,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+            $online= array('jenis_surat'=>'surat_pengantar_kk',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 
 			$this->m_input->insert('tb_surat_pengantar_kk',$data);
 			$data['surat']=$this->m_input->get('tb_surat_pengantar_kk');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 	public function proses_surat_keterangan_domisili(){
@@ -268,9 +377,33 @@ var $js;
 
 	}
   public function simpan_surat_keterangan_domisili(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_keterangan_domisili',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -278,13 +411,25 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+            $online= array('jenis_surat'=>'surat_keterangan_domisili',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
+
 
 			$this->m_input->insert('tb_surat_keterangan_domisili',$data);
 			$data['surat']=$this->m_input->get('tb_surat_keterangan_domisili');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 	public function proses_surat_keterangan_pindah(){
@@ -296,9 +441,34 @@ var $js;
 
 	}
   public function simpan_surat_keterangan_pindah(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_keterangan_pindah',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
+      
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -306,13 +476,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+$online= array('jenis_surat'=>'surat_keterangan_pindah',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 
 			$this->m_input->insert('tb_surat_keterangan_pindah',$data);
 			$data['surat']=$this->m_input->get('tb_surat_keterangan_pindah');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 	public function proses_surat_keterangan_pas_jalan(){
@@ -324,9 +505,34 @@ var $js;
 
 	}
   public function simpan_surat_keterangan_pas_jalan(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_keterangan_pas_jalan',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
+      
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -334,13 +540,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+$online= array('jenis_surat'=>'surat_keterangan_pas_jalan',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 
 			$this->m_input->insert('tb_surat_keterangan_pas_jalan',$data);
 			$data['surat']=$this->m_input->get('tb_surat_keterangan_pas_jalan');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 	public function proses_surat_keterangan_usaha(){
@@ -352,9 +569,34 @@ var $js;
 
 	}
   public function simpan_surat_keterangan_usaha(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_keterangan_usaha',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
+      
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -362,13 +604,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+$online= array('jenis_surat'=>'surat_keterangan_usaha',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 
 			$this->m_input->insert('tb_surat_keterangan_usaha',$data);
 			$data['surat']=$this->m_input->get('tb_surat_keterangan_usaha');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 	public function proses_surat_pengesahan_riwayat_hidup(){
@@ -380,9 +633,34 @@ var $js;
 
 	}
   public function simpan_surat_pengesahan_riwayat_hidup(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_pengesahan_riwayat_hidup',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
+      
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -390,13 +668,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+$online= array('jenis_surat'=>'surat_pengesahan_riwayat_hidup',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 
 			$this->m_input->insert('tb_surat_pengesahan_riwayat_hidup',$data);
 			$data['surat']=$this->m_input->get('tb_surat_pengesahan_riwayat_hidup');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 	public function proses_surat_pengesahan_kredit_bank(){
@@ -408,9 +697,34 @@ var $js;
 
 	}
   public function simpan_surat_pengesahan_kredit_bank(){
+      $config['upload_path'] = './file/';
+		$config['allowed_types'] = 'zip|rar';
+		$config['max_size']	= '100000'; //in kb
+//		$config['max_width']  = '1024';
+//		$config['max_height']  = '768';
+        $this->upload->initialize($config);
+        $jam=date('H');
+        $nik=$this->input->post('nik');
+        $valid_code=$jam.''.$nik;    
+        
+        if ( ! $this->upload->do_upload('berkas')){
+            $data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  $this->upload->display_errors();
+			$this->load->view('Online/index',$data);
+		//if upload success
+		}else{
+ 
+			$data_insert = array(
+					            'nama_file' => $this->upload->data('file_name'),
+					            'persyaratan_untuk' => 'surat_pengesahan_kredit_bank',
+                                'valid_code'=>$valid_code
+					        );
+			//query to insert into myupload table
+			$this->db->insert('tb_file_persyaratan', $data_insert);	
+      
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
-		$nik=$this->input->post('nik');
 		$keperluan=$this->input->post('keperluan');
 
 			$data= array('nama' => $nama,
@@ -418,13 +732,24 @@ var $js;
 				'nik' => $nik,
 				'keperluan' => $keperluan
 				);
+$online= array('jenis_surat'=>'surat_pengesahan_kredit_bank',
+                          'nik_pembuat'=>$nik,
+                          'keperluan'=>$keperluan,
+                          'no_hp'=>$nomor_hp,
+                          'status'=>'sedang di proses',
+                                'valid_code'=>$valid_code);
+            $this->m_input->insert('tb_online',$online);
 
 			$this->m_input->insert('tb_surat_pengesahan_kredit_bank',$data);
 			$data['surat']=$this->m_input->get('tb_surat_pengesahan_kredit_bank');
 				foreach ($data['surat'] as $value) {
 					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
 				}
-			redirect('Online/');
+			$data['title']='Online';
+            $data['images']=base_url().'assets/images/surat.png';
+			$data['message'] =  'klik <a href="">finish</a> untuk menyelesaikan permintaan';
+			$this->load->view('Online/index',$data);
+	}
 	}
 
 }

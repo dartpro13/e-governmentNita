@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 03 Mei 2017 pada 01.36
+-- Generation Time: 30 Mei 2017 pada 07.46
 -- Versi Server: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -41,18 +41,16 @@ CREATE TABLE IF NOT EXISTS `tb_file` (
 CREATE TABLE IF NOT EXISTS `tb_file_persyaratan` (
 `id_file` int(11) NOT NULL,
   `nama_file` varchar(100) NOT NULL,
-  `persyaratan_untuk` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `persyaratan_untuk` varchar(100) NOT NULL,
+  `valid_code` varchar(100) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data untuk tabel `tb_file_persyaratan`
 --
 
-INSERT INTO `tb_file_persyaratan` (`id_file`, `nama_file`, `persyaratan_untuk`) VALUES
-(1, 'CDM_to_PDM.docx', 'surat_kelakuan_baik'),
-(2, 'Pertama_login_sebagai_penyewa.docx', 'surat_kelakuan_baik'),
-(3, 'Pertama_login_sebagai_penyewa1.docx', 'surat_keterangan_lahir'),
-(4, 'Pertama_login_sebagai_penyewa2.docx', 'surat_keterangan_lahir');
+INSERT INTO `tb_file_persyaratan` (`id_file`, `nama_file`, `persyaratan_untuk`, `valid_code`) VALUES
+(1, 'PerformanceAssessment1.rar', 'surat_kelakuan_baik', '0712421');
 
 -- --------------------------------------------------------
 
@@ -65,6 +63,29 @@ CREATE TABLE IF NOT EXISTS `tb_jenis_surat` (
   `jenis` varchar(100) NOT NULL,
   `no_surat_keluar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_online`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_online` (
+`id` int(11) NOT NULL,
+  `jenis_surat` varchar(100) NOT NULL,
+  `nik_pembuat` varchar(100) NOT NULL,
+  `keperluan` text NOT NULL,
+  `no_hp` varchar(100) NOT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `valid_code` varchar(100) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `tb_online`
+--
+
+INSERT INTO `tb_online` (`id`, `jenis_surat`, `nik_pembuat`, `keperluan`, `no_hp`, `status`, `valid_code`) VALUES
+(1, 'surat_kelakuan_baik', '12421', 'Naik Haji Lagi', '081210113977', 'sedang di proses', '0712421');
 
 -- --------------------------------------------------------
 
@@ -95,7 +116,7 @@ INSERT INTO `tb_pegawai` (`nip`, `password`, `no_hp`, `nama`, `jabatan`, `alamat
 --
 
 CREATE TABLE IF NOT EXISTS `tb_penduduk` (
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `j_kelamin` varchar(100) NOT NULL,
   `agama` varchar(100) NOT NULL,
@@ -104,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `tb_penduduk` (
   `alamat` varchar(100) NOT NULL,
   `status_perkawinan` varchar(100) NOT NULL,
   `kewarganegaraan` varchar(100) NOT NULL,
-  `pekerjaan` varchar(100) NOT NULL
+  `pekerjaan` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -112,8 +133,14 @@ CREATE TABLE IF NOT EXISTS `tb_penduduk` (
 --
 
 INSERT INTO `tb_penduduk` (`nik`, `nama`, `j_kelamin`, `agama`, `tmp_lahir`, `tgl_lahir`, `alamat`, `status_perkawinan`, `kewarganegaraan`, `pekerjaan`) VALUES
-(12421, 'prasetyo singgih laksono', 'Laki-laki', 'Islam', 'sukoharjo', '2017-12-31', 'bandung', 'Belum Kawin', 'Indonesia', 'mahasiswa'),
-(12423, 'singgih', 'Laki-laki', 'Islam', 'sukoharjo', '2017-12-31', 'bandung', 'Belum Kawin', 'Indonesia', 'mahasiswa');
+('12421', 'prasetyo singgih laksono', 'Laki-laki', 'Islam', 'sukoharjo', '2017-12-31', 'bandung', 'Belum Kawin', 'Indonesia', 'mahasiswa'),
+('12423', 'singgih', 'Laki-laki', 'Islam', 'sukoharjo', '2017-12-31', 'bandung', 'Belum Kawin', 'Indonesia', 'mahasiswa'),
+('5108041602640001 ', 'MADE SUMADE', 'Lk', 'HINDU', 'BANJAR', '23423', 'Sudah Kawin', 'Indonesia', 'Buruh', NULL),
+('5108042701880003 ', 'MADE JUNIARTA', 'Lk', 'HINDU', 'BANJAR', '32169', 'Belum Kawin', 'Indonesia', 'Pelajar', NULL),
+('5108042805000002 ', 'KOMANG KRISNA DARMA', 'Lk', 'HINDU', 'BANJAR', '36674', 'Belum Kawin', 'Indonesia', 'Pelajar', NULL),
+('5108045710850002 ', 'PUTU JUNIARI', 'Pr', 'HINDU', 'BANJAR', '31337', 'Belum Kawin', 'Indonesia', 'Pelajar', NULL),
+('5108046508670001 ', 'KETUT SUMERTINI', 'Pr', 'HINDU', 'BANJAR', '24709', 'Sudah Kawin', 'Indonesia', 'Buruh', NULL),
+('5108047112320009 ', 'PUTU MASIH', 'Pr', 'HINDU', 'BANJAR', '12054', 'Belum Kawin', 'Indonesia', 'Pelajar', NULL);
 
 -- --------------------------------------------------------
 
@@ -126,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `tb_pengajuan` (
   `tgl_pengajuan` varchar(100) NOT NULL,
   `no_hp` varchar(100) NOT NULL,
   `perihal` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL
+  `nik` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -139,22 +166,26 @@ CREATE TABLE IF NOT EXISTS `tb_surat_kelakuan_baik` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data untuk tabel `tb_surat_kelakuan_baik`
 --
 
 INSERT INTO `tb_surat_kelakuan_baik` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'surat kelakuan baik untuk melanjutkan studi'),
-(17, '12423', 'Lurah', 12423, 'lahir'),
-(20, 'singgih', 'Lurah', 12423, 'lahiran aja'),
-(21, 'Budi', 'Lurah', 12421, 'Mengajukan diri sebagai manajer di sebuah perusahaan'),
-(22, 'Bambang', 'Lurah', 12423, 'Untuk test'),
-(23, 'Test', 'Lurah', 12421, 'Test'),
-(24, 'Test 2', 'Lurah', 12421, 'Test');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'surat kelakuan baik untuk melanjutkan studi'),
+(17, '12423', 'Lurah', '12423', 'lahir'),
+(20, 'singgih', 'Lurah', '12423', 'lahiran aja'),
+(21, 'Budi', 'Lurah', '12421', 'Mengajukan diri sebagai manajer di sebuah perusahaan'),
+(22, 'Bambang', 'Lurah', '12423', 'Untuk test'),
+(23, 'Test', 'Lurah', '12421', 'Test'),
+(24, 'Test 2', 'Lurah', '12421', 'Test'),
+(25, '', 'Lurah', '12421', ''),
+(26, 'Bambang Triatmoojo', 'Lurah', '12421', 'Surat Kelakuan baik'),
+(27, 'BAMUS', 'Lurah', '12421', 'Daftar Polisi'),
+(29, 'Haji Muhidin', 'Lurah', '12421', 'Naik Haji Lagi');
 
 -- --------------------------------------------------------
 
@@ -168,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keluar` (
   `tgl_surat_keluar` varchar(100) NOT NULL,
   `keperluan` varchar(100) NOT NULL,
   `nip` int(11) NOT NULL,
-  `nik` int(11) NOT NULL
+  `nik` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -207,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keterangan_pas_jalan` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -216,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keterangan_pas_jalan` (
 --
 
 INSERT INTO `tb_surat_keterangan_pas_jalan` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'tes');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'tes');
 
 -- --------------------------------------------------------
 
@@ -228,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keterangan_pindah` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -237,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keterangan_pindah` (
 --
 
 INSERT INTO `tb_surat_keterangan_pindah` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'tes');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'tes');
 
 -- --------------------------------------------------------
 
@@ -249,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keterangan_usaha` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -258,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_keterangan_usaha` (
 --
 
 INSERT INTO `tb_surat_keterangan_usaha` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'tes');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'tes');
 
 -- --------------------------------------------------------
 
@@ -274,7 +305,14 @@ CREATE TABLE IF NOT EXISTS `tb_surat_masuk` (
   `perihal` varchar(100) NOT NULL,
   `file` varchar(100) NOT NULL,
   `nip` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data untuk tabel `tb_surat_masuk`
+--
+
+INSERT INTO `tb_surat_masuk` (`no_surat`, `pengirim`, `ditujukan`, `tgl_surat`, `perihal`, `file`, `nip`) VALUES
+(7, 'Staf Administrasi Gubernur', 'Bpk. Boaz', '2017-10-19', 'Undangan Pelantikan Gubernur', 'XII/SU/V/2017', 52352);
 
 -- --------------------------------------------------------
 
@@ -286,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengantar_domisili` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -295,8 +333,8 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengantar_domisili` (
 --
 
 INSERT INTO `tb_surat_pengantar_domisili` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'tes'),
-(2, 'prasetyo singgih laksono', 'Lurah', 12421, 'tes');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'tes'),
+(2, 'prasetyo singgih laksono', 'Lurah', '12421', 'tes');
 
 -- --------------------------------------------------------
 
@@ -308,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengantar_kk` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -317,8 +355,8 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengantar_kk` (
 --
 
 INSERT INTO `tb_surat_pengantar_kk` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'cek'),
-(2, 'prasetyo singgih laksono', 'Lurah', 12421, 'cek');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'cek'),
+(2, 'prasetyo singgih laksono', 'Lurah', '12421', 'cek');
 
 -- --------------------------------------------------------
 
@@ -330,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengantar_ktp` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -339,9 +377,9 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengantar_ktp` (
 --
 
 INSERT INTO `tb_surat_pengantar_ktp` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'singgih', 'Lurah', 12421, 'cek'),
-(2, 'prasetyo singgih laksono', 'Lurah', 12421, 'cek'),
-(3, 'prasetyo singgih laksono', 'Lurah', 12421, 'cek');
+(1, 'singgih', 'Lurah', '12421', 'cek'),
+(2, 'prasetyo singgih laksono', 'Lurah', '12421', 'cek'),
+(3, 'prasetyo singgih laksono', 'Lurah', '12421', 'cek');
 
 -- --------------------------------------------------------
 
@@ -353,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengesahan_kredit_bank` (
 `id_surat` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -362,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengesahan_kredit_bank` (
 --
 
 INSERT INTO `tb_surat_pengesahan_kredit_bank` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 'prasetyo singgih laksono', 'Lurah', 12421, 'tes');
+(1, 'prasetyo singgih laksono', 'Lurah', '12421', 'tes');
 
 -- --------------------------------------------------------
 
@@ -374,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengesahan_riwayat_hidup` (
 `id_surat` int(11) NOT NULL,
   `nama` int(100) NOT NULL,
   `jabatan` varchar(100) NOT NULL,
-  `nik` int(11) NOT NULL,
+  `nik` varchar(100) NOT NULL,
   `keperluan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -383,8 +421,21 @@ CREATE TABLE IF NOT EXISTS `tb_surat_pengesahan_riwayat_hidup` (
 --
 
 INSERT INTO `tb_surat_pengesahan_riwayat_hidup` (`id_surat`, `nama`, `jabatan`, `nik`, `keperluan`) VALUES
-(1, 0, 'Lurah', 12421, 'tes'),
-(2, 0, 'Lurah', 12421, 'tes');
+(1, 0, 'Lurah', '12421', 'tes'),
+(2, 0, 'Lurah', '12421', 'tes');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+`id` bigint(20) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `level` enum('admin','member') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Indexes for dumped tables
@@ -407,6 +458,12 @@ ALTER TABLE `tb_file_persyaratan`
 --
 ALTER TABLE `tb_jenis_surat`
  ADD PRIMARY KEY (`id_jenis`), ADD KEY `id_jenis` (`id_jenis`);
+
+--
+-- Indexes for table `tb_online`
+--
+ALTER TABLE `tb_online`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tb_pegawai`
@@ -499,6 +556,12 @@ ALTER TABLE `tb_surat_pengesahan_riwayat_hidup`
  ADD PRIMARY KEY (`id_surat`), ADD KEY `nik` (`nik`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -511,12 +574,17 @@ MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tb_file_persyaratan`
 --
 ALTER TABLE `tb_file_persyaratan`
-MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_jenis_surat`
 --
 ALTER TABLE `tb_jenis_surat`
 MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tb_online`
+--
+ALTER TABLE `tb_online`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_pengajuan`
 --
@@ -526,7 +594,7 @@ MODIFY `no_pengajuan` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `tb_surat_kelakuan_baik`
 --
 ALTER TABLE `tb_surat_kelakuan_baik`
-MODIFY `id_surat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id_surat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `tb_surat_keterangan_lahir`
 --
@@ -551,7 +619,7 @@ MODIFY `id_surat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `tb_surat_masuk`
 --
 ALTER TABLE `tb_surat_masuk`
-MODIFY `no_surat` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `no_surat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tb_surat_pengantar_domisili`
 --
@@ -578,6 +646,11 @@ MODIFY `id_surat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 ALTER TABLE `tb_surat_pengesahan_riwayat_hidup`
 MODIFY `id_surat` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
@@ -598,8 +671,8 @@ ADD CONSTRAINT `tb_pengajuan_ibfk_1` FOREIGN KEY (`nik`) REFERENCES `tb_penduduk
 --
 ALTER TABLE `tb_surat_keluar`
 ADD CONSTRAINT `tb_surat_keluar_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `tb_pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `tb_surat_keluar_ibfk_2` FOREIGN KEY (`nik`) REFERENCES `tb_penduduk` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `tb_surat_keluar_ibfk_3` FOREIGN KEY (`no_surat_keluar`) REFERENCES `tb_jenis_surat` (`id_jenis`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `tb_surat_keluar_ibfk_3` FOREIGN KEY (`no_surat_keluar`) REFERENCES `tb_jenis_surat` (`id_jenis`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `tb_surat_keluar_ibfk_4` FOREIGN KEY (`nik`) REFERENCES `tb_penduduk` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_surat_masuk`

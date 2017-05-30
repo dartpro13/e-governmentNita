@@ -6,7 +6,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Pengantar KTP
+        Data Surat Masuk
         <small>advanced tables</small>
       </h1>
       <ol class="breadcrumb">
@@ -52,7 +52,7 @@
                     <td><?php echo $value->tgl_surat ?></td>
                     <td><?php echo $value->perihal ?></td>
                   <td>
-                    <a href="<?php echo site_url() ?>/proses/edit/<?php echo $value->no_surat ?>">
+                    <a href="<?php echo site_url() ?>/proses/edit_surat_masuk/<?php echo $value->no_surat ?>">
                       <i class="fa fa-edit"></i>
                     </a>
                     <!-- <a href="<?php echo site_url() ?>/proses/delete/<?php echo $value->id_surat ?>">

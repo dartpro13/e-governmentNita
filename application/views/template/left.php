@@ -244,6 +244,10 @@
             <li><a href="<?php echo site_url() ?>/tables/data_surat_masuk"><i class="fa fa-circle-o"></i>Agenda Surat Masuk</a></li>
             </ul>
         </li>
+          <li class="treeview">
+              <a href="<?php echo site_url() ?>/tables/data_surat_online"><i class="fa fa-circle-o"></i>Surat Online</a>
+            </li>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

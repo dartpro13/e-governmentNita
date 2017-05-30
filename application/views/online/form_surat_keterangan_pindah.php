@@ -27,7 +27,7 @@
     <!-- Content Header (Page header) -->
    <section class="content-header">
      <h1>
-       Form Input Pegawai
+       Form Surat Keterangan Pindah
 
      </h1>
      <ol class="breadcrumb">
@@ -178,6 +178,29 @@
                  }?>
 
                </div>
+               </div>
+                 <center><h3>Persyaratan</h3></center>
+                <div class="col-md-6">
+
+                <div class="form-group">
+
+                    <div class="form-group">
+                     <label for="exampleInputEmail1">Nomor yang bisa dihubungi</label>
+                     <input type="text" class="form-control" name="nomor_hp" placeholder="contoh: 081210113977">
+                   </div>
+                <div class="form-group">
+                 <label for="exampleInputEmail1">File Persyaratan</label>
+                 <input type="file" name="berkas" class="form-inline" /><br>
+                    <small>silahkan masukkan kedalam zip/rar file berkas persyaratan anda</small><br><br>
+                    <small>Berkas Persayaratan meliputi: </small><br>
+                    <small>*)Foto KTP</small><br>
+                    <small>**)Foto KK</small><br>
+                    <small>***)Foto Surat Pengantar RT/RW</small><br>
+                    <small>****)Foto Akte Kelahiran</small>
+                   
+                </div>
+               </div>
+
                </div>
              </div>
              <!-- /.box-body -->

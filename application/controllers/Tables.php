@@ -40,7 +40,7 @@ class Tables extends CI_Controller {
 		$data['surat']=$this->m_input->get('tb_surat_keterangan_lahir');
 		$data['surat']=$this->m_input->get('tb_surat_keterangan_lahir');
 				foreach ($data['surat'] as $value) {
-					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik_pengaju);
 					
 				}
 
@@ -64,6 +64,14 @@ class Tables extends CI_Controller {
 				}
 
 			$this->template->template('table/surat_masuk',$data);
+	}
+public function data_surat_online(){
+		$data['surat']=$this->m_input->get('tb_online');
+				foreach ($data['surat'] as $value) {
+					$data['file']=$this->m_input->getwhereid('tb_file_persyaratan','valid_code',$value->valid_code);
+				}
+
+			$this->template->template('table/surat_online',$data);
 	}
 
 	public function data_surat_pengantar_kk(){

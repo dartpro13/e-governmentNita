@@ -23,7 +23,8 @@ class Form extends CI_Controller {
 	}
     public function input_surat_masuk()
 	{
-		 $this->template->template('form/input_surat_masuk');
+        $data['status']="create";
+		 $this->template->template('form/input_surat_masuk',$data);
 	}
 
 	

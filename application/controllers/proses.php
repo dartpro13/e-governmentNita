@@ -6,6 +6,9 @@ class Proses extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 			$this->load->model("m_input");
+            $this->load->helper('url');
+            $this->load->helper("file");
+            $this->load->library(array('PHPExcel','PHPExcel/IOFactory'));
 		}
 
 
@@ -22,27 +25,27 @@ class Proses extends CI_Controller {
 		$alamat=$this->input->post('alamat');
 		$pekerjaan=$this->input->post('pekerjaan');
 		if($this->input->post('rt')!=""){
-            $rt='RT. '$this->input->post('rt');
+            $rt='RT. '.$this->input->post('rt');
         }else{
             $rt='RT.-';
         }
         if($this->input->post('rw')!=""){
-            $rw='RW. '$this->input->post('rw');
+            $rw='RW. '.$this->input->post('rw');
         }else{
             $rw='RW.-';
         }
         if($this->input->post('kecamatan')!=""){
-            $kecamatan='Kecamatan: '$this->input->post('kecamatan');
+            $kecamatan='Kecamatan: '.$this->input->post('kecamatan');
         }else{
             $kecamatan='Kecamatan: -';
         }
         if($this->input->post('kabupaten')!=""){
-            $kabupaten='Kabupaten:  '$this->input->post('kabupaten');
+            $kabupaten='Kabupaten:  '.$this->input->post('kabupaten');
         }else{
             $kabupaten='Kabupaten: -';
         }
         if($this->input->post('provinsi')!=""){
-            $provinsi='Kabupaten:  '$this->input->post('provinsi');
+            $provinsi='Kabupaten:  '.$this->input->post('provinsi');
         }else{
             $provinsi='Provinsi: -';
         }
@@ -74,27 +77,27 @@ class Proses extends CI_Controller {
 		$alamat=$this->input->post('alamat');
 
         if($this->input->post('rt')!=""){
-            $rt='RT. '$this->input->post('rt');
+            $rt='RT. '.$this->input->post('rt');
         }else{
             $rt='RT.-';
         }
         if($this->input->post('rw')!=""){
-            $rw='RW. '$this->input->post('rw');
+            $rw='RW. '.$this->input->post('rw');
         }else{
             $rw='RW.-';
         }
         if($this->input->post('kecamatan')!=""){
-            $kecamatan='Kecamatan: '$this->input->post('kecamatan');
+            $kecamatan='Kecamatan: '.$this->input->post('kecamatan');
         }else{
             $kecamatan='Kecamatan: -';
         }
         if($this->input->post('kabupaten')!=""){
-            $kabupaten='Kabupaten:  '$this->input->post('kabupaten');
+            $kabupaten='Kabupaten:  '.$this->input->post('kabupaten');
         }else{
             $kabupaten='Kabupaten: -';
         }
         if($this->input->post('provinsi')!=""){
-            $provinsi='Kabupaten:  '$this->input->post('provinsi');
+            $provinsi='Kabupaten:  '.$this->input->post('provinsi');
         }else{
             $provinsi='Provinsi: -';
         }
@@ -298,6 +301,54 @@ class Proses extends CI_Controller {
 			$this->template->template('surat/form_surat_pengantar_ktp',$data);
 	}
 	public function edit_surat_pengantar_ktp_act($id){
+		$nama=$this->input->post('nama');
+		$jabatan=$this->input->post('jabatan');
+		$nik=$this->input->post('nik');
+		$keperluan=$this->input->post('keperluan');
+
+		$data= array($nama,
+			$jabatan,
+			$nik,
+			$keperluan
+			);
+			$set= array('nama = '.'"'.$nama.'"',
+				'jabatan = '.'"'.$jabatan.'"',
+				'nik = '.'"'.$nik.'"',
+				'keperluan = '.'"'.$keperluan.'"'
+				);
+				$arrlength=count($set);
+				$x=0;
+				while($x<$arrlength) {
+						$this->m_input->updateNew('tb_surat_pengantar_ktp',$set[$x],'id_surat',$id);
+						$x++;
+				}
+
+			$data['surat']=$this->m_input->get('tb_surat_pengantar_ktp');
+				foreach ($data['surat'] as $value) {
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+
+
+			$this->template->template('table/surat_pengantar_ktp',$data);
+	}
+    public function edit_surat_masuk($id){
+			$data['surat']=$this->m_input->getwhereid('tb_surat_masuk','no_surat',$id);
+			foreach ($data['surat'] as $row) {
+				$pengirim = $row->pengirim;
+				$perihal = $row->perihal;
+				$tgl_surat = $row->tgl_surat;
+				$no_surat = $row->file;
+				$tgl_surat = $row->tgl_surat;
+                $ditujukan = $row->ditujukan;
+			}
+//			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
+			$data['status']="edit";
+//			$data['keperluan']=$keperluan;
+			$data['idS']=$id;
+//			$data['namaSurat']=$namaSurat;
+			$this->template->template('form/input_surat_masuk',$data);
+	}
+	public function edit_surat_masuk_act($id){
 		$nama=$this->input->post('nama');
 		$jabatan=$this->input->post('jabatan');
 		$nik=$this->input->post('nik');
@@ -606,10 +657,10 @@ class Proses extends CI_Controller {
 	        $this->load->library('upload');
 	        $this->upload->initialize($config);
 
-	        if(! $this->upload->do_upload('file') )
+	        if(! $this->upload->do_upload('data_penduduk') )
 	        $this->upload->display_errors();
 
-	        $media = $this->upload->data('file');
+	        $media = $this->upload->data('data_penduduk');
 	        $inputFileName = 'assets/'.$config['file_name'];
 
 	        try {
