@@ -7,6 +7,9 @@ class Tables extends CI_Controller {
 		parent::__construct(); 
 			$this->load->model("m_input");
 			//$this->load->library("template");
+        if ($this->session->userdata('username')=="") {
+			redirect('login');
+		}
 		}
 	
 
@@ -72,6 +75,21 @@ public function data_surat_online(){
 				}
 
 			$this->template->template('table/surat_online',$data);
+	}
+    public function data_surat_keluar(){
+		$data['spkk']=$this->m_input->get('tb_surat_pengantar_kk');
+		$data['spktp']=$this->m_input->get('tb_surat_pengantar_ktp');
+		$data['spd']=$this->m_input->get('tb_surat_pengantar_domisili');
+		$data['skp']=$this->m_input->get('tb_surat_keterangan_pindah');
+		$data['skpj']=$this->m_input->get('tb_surat_keterangan_pas_jalan');
+		$data['sku']=$this->m_input->get('tb_surat_keterangan_usaha');
+		$data['sprh']=$this->m_input->get('tb_surat_pengesahan_riwayat_hidup');
+		$data['spkb']=$this->m_input->get('tb_surat_pengesahan_kredit_bank');
+		$data['skl']=$this->m_input->get('tb_surat_keterangan_lahir');
+		$data['skb']=$this->m_input->get('tb_surat_kelakuan_baik');
+        
+
+			$this->template->template('table/surat_keluar',$data);
 	}
 
 	public function data_surat_pengantar_kk(){
@@ -143,6 +161,7 @@ public function data_surat_online(){
 
 			$this->template->template('table/surat_pengesahan_kredit_bank',$data);
 	}
+    
 
 
 	

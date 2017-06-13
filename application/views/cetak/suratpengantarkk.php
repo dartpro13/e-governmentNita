@@ -97,7 +97,7 @@
                                                 <center>
                                                     <!-- <h2>CERTIFIKAT PENGHARGAAN</h2> -->
                                                     <h4><b><u>SURAT PENGANTAR KK</u></b></h4>
-                                                    <h4><b>Nomor : <?php echo $value->id_surat ?> / XII / <?php echo date('Y') ?></b></h4>
+                                                    <h4><b>Nomor : SPKK<?php echo $value->id_surat ?> / XII / <?php echo date('Y') ?></b></h4>
 
                                                 </center>
                                             </div>

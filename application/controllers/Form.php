@@ -6,6 +6,9 @@ class Form extends CI_Controller {
 	function __construct(){
 		parent::__construct(); 
 			$this->load->model("m_input");
+        if ($this->session->userdata('username')=="") {
+			redirect('login');
+		}
 		}
 
 	public function input_penduduk()

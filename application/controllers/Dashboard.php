@@ -22,6 +22,9 @@ class Dashboard extends CI_Controller {
 		parent::__construct(); 
 			$this->load->model("m_input");
 			//$this->load->library("template");
+        if ($this->session->userdata('username')=="") {
+			redirect('login');
+		}
 		}
 	
 	public function index()
@@ -56,6 +59,12 @@ class Dashboard extends CI_Controller {
 		$data['surat_keluar']=$this->m_input->get('tb_surat_keluar');
 		$this->template->template('dashboard',$data);
 	}
-
+    public function logout() {
+		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('level');
+		session_destroy();
+		redirect('login');
+	}
+    
 	
 }

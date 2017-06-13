@@ -97,7 +97,7 @@
                                                 <center>
                                                     <!-- <h2>CERTIFIKAT PENGHARGAAN</h2> -->
                                                     <h4><b><u>SURAT PENGESAHAN KREDIT BANK</u></b></h4>
-                                                    <h4><b>Nomor : <?php echo $value->id_surat ?> / XII / <?php echo date('Y') ?></b></h4>
+                                                    <h4><b>Nomor : SPKB<?php echo $value->id_surat ?> / XII / <?php echo date('Y') ?></b></h4>
 
                                                 </center>
                                             </div>

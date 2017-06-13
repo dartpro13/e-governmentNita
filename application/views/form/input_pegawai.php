@@ -25,18 +25,40 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url() ?>/proses/input_pegawai" method="POST">
+                <?php if($status=="edit"){
+            foreach ($pegawai as $data) {
+
+            }
+              ?><form role="form" action="<?php echo site_url() ?>/proses/edit_pegawai_act/<?= $idS;?>" method="POST">
+              <?php
+            } else if($status=="create"){
+              ?><form role="form" action="<?php echo site_url() ?>/proses/input_pegawai" method="POST">
+              <?php
+            }?>
               <div class="box-body">
                 <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">NIP</label>
-                  <input type="number" class="form-control" name="nip" >
+                    <?php if($status=="edit"){
+                     ?>
+                  <input type="number" class="form-control" name="nip" value="<?=$data->nip?>">
+                    <?php }else if($status=="create"){
+                    ?>
+                    <input type="number" class="form-control" name="nip">
+                    <?php
+                    }?>
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputPassword1">Nama</label>
-                   <input type="text" class="form-control" name="nama" placeholder="Masukan Nama">
-                  
+                    <?php if($status=="edit"){
+                     ?>
+                   <input type="text" class="form-control" name="nama" placeholder="Masukan Nama" value="<?=$data->nama?>">
+                  <?php }else if($status=="create"){
+                    ?>
+                     <input type="text" class="form-control" name="nama" placeholder="Masukan Nama">
+                  <?php
+                    }?>
                 </div>
                 
                 <div class="form-group">
@@ -46,8 +68,14 @@
                 
                 <div class="form-group">
                   <label for="exampleInputPassword1">No HP</label>
+                    <?php if($status=="edit"){
+                     ?>
+                    <input type="number" class="form-control" name="nohp" placeholder="Masukan No HP" value="<?= $data->no_hp;?>">
+                    <?php }else if($status=="create"){
+                    ?>
                    <input type="number" class="form-control" name="nohp" placeholder="Masukan No HP">
-                  
+                  <?php
+                    }?>
                 </div>
 
                 
@@ -103,6 +131,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                  <a href="/pa_nita/index.php/dashboard/"><button type="button" class="btn btn-warning">Cancel</button></a>
               </div>
             </form>
           </div>

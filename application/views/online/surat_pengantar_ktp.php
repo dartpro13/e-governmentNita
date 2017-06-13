@@ -65,11 +65,17 @@
              </div>
 
             <input type="submit" class="btn btn-primary" value="cari data">
+               <a href="<?=base_url()?>"><button type="button" class="btn btn-warning">Back to Home</button></a>
            </div>
            </form>
            <!-- /.col -->
          </div>
          <!-- /.row -->
+           <br>
+           <div class="form-group">
+                    <small>*) Silahkan cari NIK anda lalu klik cari data untuk melanjutkan pembuatan surat</small><br>
+                    <small>**) Jika anda tidak menemukan NIK anda, silahkan hubungi pihak kantordesa-banjar.com untuk di proses</small><br>
+                </div>
        </div>
        <!-- /.box-body -->
 

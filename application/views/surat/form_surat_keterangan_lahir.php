@@ -28,7 +28,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Form Input Pegawai
+        Form Surat Keterangan Lahir
        
       </h1>
       <ol class="breadcrumb">
@@ -65,7 +65,7 @@
                  <div class="form-group">
                   <label for="exampleInputPassword1">Jabatan</label>
                  <select class="form-control" name="jabatan">
-                    <option>Lurah</option>
+                    <option>Kepala Desa</option>
                     <option>Kaur</option>
                     <option>Sekretaris</option>
                   </select>

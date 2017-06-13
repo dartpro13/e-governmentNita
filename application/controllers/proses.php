@@ -35,21 +35,21 @@ class Proses extends CI_Controller {
             $rw='RW.-';
         }
         if($this->input->post('kecamatan')!=""){
-            $kecamatan='Kecamatan: '.$this->input->post('kecamatan');
+            $kecamatan='Kecamatan '.$this->input->post('kecamatan');
         }else{
             $kecamatan='Kecamatan: -';
         }
         if($this->input->post('kabupaten')!=""){
-            $kabupaten='Kabupaten:  '.$this->input->post('kabupaten');
+            $kabupaten='Kabupaten '.$this->input->post('kabupaten');
         }else{
             $kabupaten='Kabupaten: -';
         }
         if($this->input->post('provinsi')!=""){
-            $provinsi='Kabupaten:  '.$this->input->post('provinsi');
+            $provinsi='Provinsi '.$this->input->post('provinsi');
         }else{
             $provinsi='Provinsi: -';
         }
-		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.' '.$kecamatan.' '.$kabupaten.' '.$provinsi;
+		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.', '.$kecamatan.', '.$kabupaten.', '.$provinsi;
 
 			$data= array('nik' => $nik,
 				'nama' => $nama,
@@ -65,6 +65,8 @@ class Proses extends CI_Controller {
 
 			$query=$this->m_input->insert('tb_penduduk',$data);
 			$data['penduduk']=$this->m_input->get('tb_penduduk');
+        $data['status']="create";
+			
 			$this->template->template('table/data_penduduk');
 	}
 
@@ -87,21 +89,21 @@ class Proses extends CI_Controller {
             $rw='RW.-';
         }
         if($this->input->post('kecamatan')!=""){
-            $kecamatan='Kecamatan: '.$this->input->post('kecamatan');
+            $kecamatan='Kecamatan '.$this->input->post('kecamatan');
         }else{
             $kecamatan='Kecamatan: -';
         }
         if($this->input->post('kabupaten')!=""){
-            $kabupaten='Kabupaten:  '.$this->input->post('kabupaten');
+            $kabupaten='Kabupaten '.$this->input->post('kabupaten');
         }else{
             $kabupaten='Kabupaten: -';
         }
         if($this->input->post('provinsi')!=""){
-            $provinsi='Kabupaten:  '.$this->input->post('provinsi');
+            $provinsi='Provinsi '.$this->input->post('provinsi');
         }else{
             $provinsi='Provinsi: -';
         }
-		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.' '.$kecamatan.' '.$kabupaten.' '.$provinsi;
+		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.', '.$kecamatan.', '.$kabupaten.', '.$provinsi;
 
 			$data= array('nip' => $nip,
 				'password' => md5($password),
@@ -112,8 +114,44 @@ class Proses extends CI_Controller {
 				);
 
 			$query=$this->m_input->insert('tb_pegawai',$data);
+        $data['status']="create";
+			
 			$data['pegawai']=$this->m_input->get('tb_pegawai');
 			$this->template->template('table/data_pegawai',$data);
+	}
+    
+    public function edit_pegawai($id){
+			$data['pegawai']=$this->m_input->getwhereid('tb_pegawai','nip',$id);
+			foreach ($data['pegawai'] as $row) {
+				$nip = $row->nip;
+				$no_hp = $row->no_hp;
+				$nama = $row->nama;
+				$jabatan = $row->jabatan;
+				$alamat = $row->alamat;
+			}
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nip);
+			$data['status']="edit";
+			$data['idS']=$id;
+			$this->template->template('form/input_pegawai',$data);
+	}
+    public function edit_penduduk($id){
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$id);
+			foreach ($data['penduduk'] as $row) {
+				$nik = $row->nik;
+				$nama = $row->nama;
+				$j_kelamin = $row->j_kelamin;
+				$agama = $row->agama;
+				$tmp_lahir = $row->tmp_lahir;
+				$tgl_lahir = $row->tgl_lahir;
+				$alamat = $row->alamat;
+				$status_perkawinan = $row->status_perkawinan;
+				$kewarganegaraan = $row->kewarganegaraan;
+				$pekerjaan = $row->pekerjaan;
+			}
+			$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$nik);
+			$data['status']="edit";
+			$data['idS']=$id;
+			$this->template->template('form/input_penduduk',$data);
 	}
 
 	public function surat_kelakuan_baik(){
@@ -138,6 +176,70 @@ class Proses extends CI_Controller {
 			$data['idS']=$id;
 			$data['namaSurat']=$namaSurat;
 			$this->template->template('surat/form_surat_kelakuan_baik',$data);
+	}
+    public function edit_pegawai_act($id){
+		$nip=$this->input->post('nip');
+		$nama=$this->input->post('nama');
+		$password=$this->input->post('password');
+		$no_hp=$this->input->post('nohp');
+		$jabatan=$this->input->post('jabatan');
+		$alamat=$this->input->post('alamat');
+
+        if($this->input->post('rt')!=""){
+            $rt='RT. '.$this->input->post('rt');
+        }else{
+            $rt='RT.-';
+        }
+        if($this->input->post('rw')!=""){
+            $rw='RW. '.$this->input->post('rw');
+        }else{
+            $rw='RW.-';
+        }
+        if($this->input->post('kecamatan')!=""){
+            $kecamatan='Kecamatan '.$this->input->post('kecamatan');
+        }else{
+            $kecamatan='Kecamatan: -';
+        }
+        if($this->input->post('kabupaten')!=""){
+            $kabupaten='Kabupaten '.$this->input->post('kabupaten');
+        }else{
+            $kabupaten='Kabupaten: -';
+        }
+        if($this->input->post('provinsi')!=""){
+            $provinsi='Provinsi '.$this->input->post('provinsi');
+        }else{
+            $provinsi='Provinsi: -';
+        }
+		$alamat_lengkap=$alamat.' '.$rt.' '.$rw.', '.$kecamatan.', '.$kabupaten.', '.$provinsi;
+
+		$data= array($nip,
+				md5($password),
+				$no_hp,
+				$nama,
+				$jabatan,
+				$alamat_lengkap
+				);
+			$set= array('nip = '.'"'.$nip.'"',
+				'password= '.'"'.md5($password).'"',
+				'no_hp = '.'"'.$no_hp.'"',
+				'nama = '.'"'.$nama.'"',
+				'jabatan = '.'"'.$jabatan.'"',
+				'alamat = '.'"'.$alamat_lengkap.'"'
+				);
+				$arrlength=count($set);
+				$x=0;
+				while($x<$arrlength) {
+						$this->m_input->updateNew('tb_pegawai',$set[$x],'nip',$id);
+						$x++;
+				}
+
+			$data['surat']=$this->m_input->get('tb_surat_kelakuan_baik');
+				foreach ($data['surat'] as $value) {
+					$data['penduduk']=$this->m_input->getwhereid('tb_penduduk','nik',$value->nik);
+				}
+
+
+			$this->template->template('table/surat_kelakuan_baik',$data);
 	}
 	public function edit_surat_kelakuan_baik_act($id){
 		$nama=$this->input->post('nama');
@@ -205,7 +307,7 @@ class Proses extends CI_Controller {
 	public function edit_surat_keterangan_lahir($id){
 			$data['surat']=$this->m_input->getwhereid('tb_surat_keterangan_lahir','id_surat',$id);
 			foreach ($data['surat'] as $row) {
-				$nik = $row->nik;
+				$nik = $row->nik_pengaju;
 				$keperluan = $row->keperluan;
 				$namaSurat = $row->nama;
 			}

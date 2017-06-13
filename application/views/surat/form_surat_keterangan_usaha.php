@@ -37,7 +37,7 @@
                  <div class="form-group">
                   <label for="exampleInputPassword1">Jabatan</label>
                  <select class="form-control" name="jabatan">
-                    <option>Lurah</option>
+                    <option>Kepala Desa</option>
                     <option>Kaur</option>
                     <option>Sekretaris</option>
                   </select>

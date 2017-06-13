@@ -65,6 +65,7 @@
              </div>
 
             <input type="submit" class="btn btn-primary" value="cari data">
+               <a href="<?=base_url()?>"><button type="button" class="btn btn-warning">Back to Home</button></a>
            </div>
            </form>
            <!-- /.col -->

@@ -25,17 +25,42 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url() ?>/proses/input_penduduk" method="POST">
+            <?php if($status=="edit"){
+            foreach ($penduduk as $data) {
+
+            }
+              ?><form role="form" action="<?php echo site_url() ?>/proses/edit_penduduk_act/<?= $idS;?>" method="POST">
+              <?php
+            } else if($status=="create"){
+              ?><form role="form" action="<?php echo site_url() ?>/proses/input_penduduk" method="POST">
+              <?php
+            }?>
               <div class="box-body">
                 <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nik</label>
-                  <input type="number" class="form-control" name="nik" >
+                  <?php if($status=="edit"){
+                    
+              ?>
+                    <input type="number" class="form-control" name="nik" value="<?=$data->nik;?>">
+                    <?php
+            } else if($status=="create"){
+              ?><input type="number" class="form-control" name="nik" >
+                <?php
+            }?>    
                 </div>
                 
                 <div class="form-group">
                   <label for="exampleInputPassword1">Nama</label>
-                  <input type="text" class="form-control" name="nama" placeholder="Masukan Nama">
+                  <?php if($status=="edit"){
+                    
+              ?>
+                  <input type="text" class="form-control" name="nama" placeholder="Masukan Nama"value="<?=$data->nama;?>">
+                   <?php
+            } else if($status=="create"){
+              ?><input type="text" class="form-control" name="nama" placeholder="Masukan Nama">
+                     <?php
+            }?> 
                 </div>
                 
                 <div class="form-group">
@@ -59,8 +84,15 @@
 
                 <div class="form-group">
                   <label for="exampleInputPassword1">Tempat Lahir</label>
-                   <input type="text" class="form-control" name="tmp" >
-                  
+                   <?php if($status=="edit"){
+                    
+              ?>
+                  <input type="text" class="form-control" name="tmp" value="<?=$data->tmp_lahir;?>">
+                  <?php
+            } else if($status=="create"){
+              ?><input type="text" class="form-control" name="tmp" >
+                   <?php
+            }?> 
                 </div>
                 
                 </div>
@@ -69,7 +101,15 @@
                 
                  <div class="form-group">
                   <label for="exampleInputPassword1">Tgl Lahir</label>
-                  <input type="date" class="form-control" name="tgl" >
+                  <?php if($status=="edit"){
+                    
+              ?>
+                  <input type="date" class="form-control" name="tgl" value="<?=$data->tgl_lahir;?>">
+                  <?php
+            } else if($status=="create"){
+              ?><input type="date" class="form-control" name="tgl" >
+                      <?php
+            }?> 
                 </div>
                 
                  <div class="form-group">
@@ -90,7 +130,15 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Pekerjaan</label>
-                  <input type="text" class="form-control" name="pekerjaan" >
+                  <?php if($status=="edit"){
+                    
+              ?>
+                 <input type="text" class="form-control" name="pekerjaan" value="<?=$data->pekerjaan;?>">
+                 <?php
+            } else if($status=="create"){
+              ?><input type="text" class="form-control" name="pekerjaan" >
+                      <?php
+            }?> 
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Alamat</label>
@@ -129,6 +177,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                  <a href="/pa_nita/index.php/dashboard/"><button type="button" class="btn btn-warning">Cancel</button></a>
               </div>
             </form>
           </div>

@@ -41,24 +41,19 @@ var $js;
 		$this->css=base_url().'assets/css/';
 		$this->js=base_url().'assets/js/';
     $this->load->model("m_input");
+        $this->asset='https://www.kantordesa-banjar.com/assets/online/';
 		//$this->load->model('m_data');
 	}
 	public function index()
 	{
-    $data['title']='Online';
-    $data['images']=base_url().'assets/images/surat.png';
-        $data['message']='<h1>Surat Online</h1>';
-		// $data['assets']=$this->assets;
-		// $data['css']=$this->css;
-		// $data['js']=$this->js;
-    // $data['head']=$this->load->view('admin/head',$data, true);
-    // $data['menu_profile']=$this->load->view('admin/menu_profile',$data, true);
-    // $data['menu_footer']=$this->load->view('admin/menu_footer',$data, true);
-    // $data['sidebar']=$this->load->view('admin/sidebar',$data, true);
-    // $data['top_navigation']=$this->load->view('admin/top_navigation',$data, true);
-    // $data['content']=$this->load->view('admin/content_dashboard',$data, true);
-    // $data['footer_content']=$this->load->view('admin/footer_content',$data, true);
-		$this->load->view('Online/index',$data);
+        $data['title']='Kantor Desa Banjar';
+		$data['assets']=$this->asset;
+        $data['info']=$this->load->view('online/template/head-info',$data,true);
+        $data['nav']=$this->load->view('online/template/head-nav',$data,true);
+        $data['intro']=$this->load->view('online/template/body-section-intro',$data,true);
+        $data['about']=$this->load->view('online/template/body-section-about',$data,true);
+        $data['foot']=$this->load->view('online/template/foot',$data,true);
+		$this->load->view('online/index',$data);
 	}
   public function set_nomor_surat($kodeSurat)
   {
@@ -71,52 +66,52 @@ var $js;
     $data['menit']=date('i');
     $this->load->view('Online/set_nomor_surat',$data);
   }
-	public function surat_kelakuan_baik($kodeSurat)
+	public function surat_kelakuan_baik()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_kelakuan_baik',$data);
 	}
-	public function surat_keterangan_lahir($kodeSurat)
+	public function surat_keterangan_lahir()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_lahir',$data);
 	}
-	public function surat_keterangan_usaha($kodeSurat)
+	public function surat_keterangan_usaha()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_usaha',$data);
 	}
-	public function surat_keterangan_pindah($kodeSurat)
+	public function surat_keterangan_pindah()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_pindah',$data);
 	}
-	public function surat_keterangan_domisili($kodeSurat)
+	public function surat_keterangan_domisili()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_domisili',$data);
 	}
-	public function surat_keterangan_pas_jalan($kodeSurat)
+	public function surat_keterangan_pas_jalan()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_keterangan_pas_jalan',$data);
 	}
-	public function surat_pengantar_kk($kodeSurat)
+	public function surat_pengantar_kk()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengantar_kk',$data);
 	}
-	public function surat_pengantar_ktp($kodeSurat)
+	public function surat_pengantar_ktp()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengantar_ktp',$data);
 	}
-	public function surat_pengesahan_kredit_bank($kodeSurat)
+	public function surat_pengesahan_kredit_bank()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengesahan_kredit_bank',$data);
 	}
-	public function surat_pengesahan_riwayat_hidup($kodeSurat)
+	public function surat_pengesahan_riwayat_hidup()
 	{
 		$data['penduduk']=$this->m_input->get('tb_penduduk');
 		 $this->load->view('Online/surat_pengesahan_riwayat_hidup',$data);

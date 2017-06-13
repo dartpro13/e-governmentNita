@@ -84,9 +84,10 @@
                 <div class="form-group">
                  <label for="exampleInputPassword1">Jabatan</label>
                 <select class="form-control" name="jabatan">
-                   <option>Lurah</option>
+                   <option>Kepala Desa</option>
                    <option>Kaur</option>
                    <option>Sekretaris</option>
+                   <option>Warga Desa</option>
                  </select>
                </div>
 
@@ -209,6 +210,7 @@
 
              <div class="box-footer">
                <button type="submit" onclick="al()" class="btn btn-primary">Submit</button>
+                 <a href="<?=base_url()?>"><button type="button" class="btn btn-warning">Back to Home</button></a>
              </div>
            </form>
          </div>

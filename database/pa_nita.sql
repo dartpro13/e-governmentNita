@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 30 Mei 2017 pada 07.46
+-- Generation Time: 13 Jun 2017 pada 22.51
 -- Versi Server: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `pa_nita`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `login_session`
+--
+
+CREATE TABLE IF NOT EXISTS `login_session` (
+`uid` bigint(20) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `level` enum('admin','member') NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `login_session`
+--
+
+INSERT INTO `login_session` (`uid`, `username`, `password`, `level`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin');
 
 -- --------------------------------------------------------
 
@@ -107,7 +127,8 @@ CREATE TABLE IF NOT EXISTS `tb_pegawai` (
 --
 
 INSERT INTO `tb_pegawai` (`nip`, `password`, `no_hp`, `nama`, `jabatan`, `alamat`) VALUES
-(52352, '21232f297a57a5a743894a0e4a801fc3', '124512541', 'prasetyo singgih laksono', 'Lurah', 'bandung');
+(52352, '21232f297a57a5a743894a0e4a801fc3', '124512541', 'prasetyo singgih laksono', 'Lurah', 'bandung'),
+(102910, '911dcefc611b8a93b19491aeb209d820', '123123123', 'Nitaa', 'Lurah', 'Sukabirus RT. 01 RW. 02, Kecamatan Bojongsoang, Kabupaten Bandung, Provinsi Jawa Barat');
 
 -- --------------------------------------------------------
 
@@ -179,10 +200,10 @@ INSERT INTO `tb_surat_kelakuan_baik` (`id_surat`, `nama`, `jabatan`, `nik`, `kep
 (17, '12423', 'Lurah', '12423', 'lahir'),
 (20, 'singgih', 'Lurah', '12423', 'lahiran aja'),
 (21, 'Budi', 'Lurah', '12421', 'Mengajukan diri sebagai manajer di sebuah perusahaan'),
-(22, 'Bambang', 'Lurah', '12423', 'Untuk test'),
+(22, 'Rahmat', 'Lurah', '12423', 'Untuk test'),
 (23, 'Test', 'Lurah', '12421', 'Test'),
 (24, 'Test 2', 'Lurah', '12421', 'Test'),
-(25, '', 'Lurah', '12421', ''),
+(25, 'Bambang', 'Lurah', '12421', ''),
 (26, 'Bambang Triatmoojo', 'Lurah', '12421', 'Surat Kelakuan baik'),
 (27, 'BAMUS', 'Lurah', '12421', 'Daftar Polisi'),
 (29, 'Haji Muhidin', 'Lurah', '12421', 'Naik Haji Lagi');
@@ -442,6 +463,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 --
+-- Indexes for table `login_session`
+--
+ALTER TABLE `login_session`
+ ADD PRIMARY KEY (`uid`);
+
+--
 -- Indexes for table `tb_file`
 --
 ALTER TABLE `tb_file`
@@ -565,6 +592,11 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `login_session`
+--
+ALTER TABLE `login_session`
+MODIFY `uid` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_file`
 --

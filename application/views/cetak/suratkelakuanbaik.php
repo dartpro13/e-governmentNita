@@ -97,7 +97,7 @@
                                                 <center>
                                                     <!-- <h2>CERTIFIKAT PENGHARGAAN</h2> -->
                                                     <h4><b><u>SURAT KETERANGAN BERKELAKUAN BAIK</u></b></h4>
-                                                    <h4><b>Nomor : <?php echo $value->id_surat ?> / XII / <?php echo date('Y') ?></b></h4>
+                                                    <h4><b>Nomor : SKB<?php echo $value->id_surat ?> / XII / <?php echo date('Y') ?></b></h4>
 
                                                 </center>
                                             </div>
@@ -113,7 +113,7 @@
                                                 </div>
 
                                                 <div class="col-md-7 col-xs-7 col-sm-7">
-                                                 <h4 style="align:left;">Nama Pagawai</h4> 
+                                                 <h4 style="align:left;"><?php echo $value->nama ?></h4> 
                                                 </div>
  												
  												<div class="col-md-4 col-xs-4 col-sm-4">

@@ -65,12 +65,14 @@
                   <td><?php echo $data->pekerjaan ?></td>
                   <td><?php echo $data->alamat ?></td>
                    <td>
-                   <a href="">
+                   <a href="/pa_nita/index.php/proses/edit_penduduk/<?php echo $data->nik ?>">
                     <i class="fa fa-edit"></i>
                    </a>
+<!--
                    <a href="">
                     <i class="fa fa-trash"></i>
                    </a>
+-->
                    </td>
                 </tr>
                 

@@ -99,6 +99,12 @@
         </li> -->
         
         <li class="header">Pengajuan Surat Keluar</li>
+        <li class="treeview">
+              <a href="<?php echo site_url() ?>/tables/data_surat_keluar"><i class="fa fa-circle-o"></i>Surat Keluar Keseluruhan</a>
+        </li>
+        <li class="treeview">
+              <a href="<?php echo site_url() ?>/tables/data_surat_online"><i class="fa fa-circle-o"></i>Surat Online</a>
+        </li>
         
         <li class="treeview">
           <a href="#">
@@ -229,7 +235,6 @@
             <li><a href="<?php echo site_url() ?>/tables/data_pengesahan_kredit_bank"><i class="fa fa-circle-o"></i>Data Surat</a></li>
             </ul>
         </li>
-
         <li class="header">Surat Masuk</li>
 		
 		<li class="treeview">
@@ -244,9 +249,7 @@
             <li><a href="<?php echo site_url() ?>/tables/data_surat_masuk"><i class="fa fa-circle-o"></i>Agenda Surat Masuk</a></li>
             </ul>
         </li>
-          <li class="treeview">
-              <a href="<?php echo site_url() ?>/tables/data_surat_online"><i class="fa fa-circle-o"></i>Surat Online</a>
-            </li>
+          
         </li>
       </ul>
     </section>
