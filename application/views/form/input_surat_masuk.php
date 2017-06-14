@@ -30,10 +30,10 @@
             foreach ($surat as $data) {
 
             }
-              ?><form role="form" action="<?php echo site_url() ?>/proses/edit_surat_kelakuan_baik_act/<?= $idS;?>" method="POST">
+              ?><form role="form" action="<?php echo site_url() ?>/proses/edit_surat_masuk_act/<?= $idS;?>" method="POST">
               <?php
             } else if($status=="create"){
-              ?><form role="form" action="<?php echo site_url() ?>/proses/simpan_surat_kelakuan_baik" method="POST">
+              ?><form role="form" action="<?php echo site_url() ?>/proses/simpan_surat_masuk" method="POST">
               <?php
             }?>
 

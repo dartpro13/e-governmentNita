@@ -74,7 +74,7 @@
                   }
                    ?>
                   <td>
-                    <a href="<?php echo site_url() ?>/proses/edit/<?php echo $value->id_surat ?>">
+                    <a href="<?php echo site_url() ?>/proses/edit_surat_pengantar_domisili/<?php echo $value->id_surat ?>">
                       <i class="fa fa-edit"></i>
                     </a>
                     <!-- <a href="<?php echo site_url() ?>/proses/delete/<?php echo $value->id_surat ?>">

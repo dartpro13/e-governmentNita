@@ -13,7 +13,8 @@ class Form extends CI_Controller {
 
 	public function input_penduduk()
 	{
-		 $this->template->template('form/input_penduduk');
+         $data['status']="create";
+		 $this->template->template('form/input_penduduk',$data);
 	}
     public function import_penduduk()
 	{
@@ -22,7 +23,8 @@ class Form extends CI_Controller {
 
 	public function input_pegawai()
 	{
-		 $this->template->template('form/input_pegawai');
+		 $data['status']="create";
+		 $this->template->template('form/input_pegawai',$data);
 	}
     public function input_surat_masuk()
 	{
